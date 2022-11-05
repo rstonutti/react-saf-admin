@@ -1,0 +1,19 @@
+.cashier {
+  background-color: red;
+  display: flex;
+  //height: 100vh;
+  .cashier-left {
+    background-color: blue;
+    height: 100vh;
+    width: 70%;
+    .navbar {
+      height: 50px;
+      background-color: aqua;
+    }
+  }
+  .cashier-right {
+    background-color: purple;
+    height: 100vh;
+    width: 30%;
+  }
+}
