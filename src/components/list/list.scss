@@ -1,44 +1,45 @@
 .list-container {
+  align-items: center;
+  background-color: darkred;
+  border: 5px solid black;
+  border-radius: 10px;
+  display: flex;
+  min-width: 75%;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 5px;
+
+  animation-name: apearCart;
+  animation-duration: 0.7s;
+
+  .list-img {
     align-items: center;
-    background-color: darkred;
-    border: 5px solid black;
-    border-radius: 10px;
+    background-color: aqua;
     display: flex;
-    justify-content: space-between;
-    margin: 10px;
-    padding: 5px;
+    flex: 10 10%;
+  }
 
-    animation-name: apearCart;
-    animation-duration: 0.7s;
+  .list-icon {
+    background-color: red;
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+  }
 
-    .list-img {
-        align-items: center;
-        background-color: aqua;
-        display: flex;
-        flex: 2 10%;
-    }
-
-    .list-icon {
-        background-color: red;
-        display: flex;
-        flex: 1;
-        justify-content: space-around;
-    }
-
-    .list-price {
-        display: flex;
-        background-color: aqua;
-        flex: 1;
-        justify-content: center;
-    }
+  .list-price {
+    display: flex;
+    background-color: aqua;
+    flex: 1;
+    justify-content: center;
+  }
 }
 
 @keyframes apearCart {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }

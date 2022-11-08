@@ -14,7 +14,8 @@
     }
 
     .navbar-categories {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 
       button {
         margin: 10px 10px 0;
@@ -26,9 +27,11 @@
 
     .card-wrapper {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, .16666666667fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
+
+  //.16666666667
 
   .cashier-right {
     background-color: purple;
