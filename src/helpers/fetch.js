@@ -2,7 +2,7 @@ const baseUrl = "https://node-saf-api.onrender.com";
 const localUrl = "http://localhost:5000";
 
 const fetchSinToken = (endpoint, data, method = "GET") => {
-  const url = `${baseUrl}/${endpoint}`;
+  const url = `${localUrl}/${endpoint}`;
 
   if (method === "GET") {
     return fetch(url);
@@ -18,7 +18,7 @@ const fetchSinToken = (endpoint, data, method = "GET") => {
 };
 
 const fetchConToken = (endpoint, data, method = "GET") => {
-  const url = `${baseUrl}/${endpoint}`;
+  const url = `${localUrl}/${endpoint}`;
 
   const token = localStorage.getItem("token") || "";
 
@@ -42,7 +42,7 @@ const fetchConToken = (endpoint, data, method = "GET") => {
 };
 
 const fetchFiles = (endpoint, data, method = "GET") => {
-  const url = `${baseUrl}/${endpoint}`;
+  const url = `${localUrl}/${endpoint}`;
 
   const token = localStorage.getItem("token") || "";
 

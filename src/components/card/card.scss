@@ -1,0 +1,53 @@
+.card-container {
+    margin: 10px;
+    border: 5px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #fff;
+
+    .card-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card-title {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        .card-name {
+            background-color: red;
+        }
+
+        .card-price {
+            background-color: aquamarine;
+        }
+
+        .card-icon {
+
+
+
+            background-color: #0a0a23;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 5px;
+
+            /* min-height: 30px;
+            min-width: 120px; */
+            &:hover {
+                background-color: #002ead;
+                transition: 0.7s;
+            }
+
+            &:focus {
+                outline-color: transparent;
+                outline-style: solid;
+                box-shadow: 0 0 0 4px #5a01a7;
+                transition: 0.7s;
+            }
+        }
+    }
+}

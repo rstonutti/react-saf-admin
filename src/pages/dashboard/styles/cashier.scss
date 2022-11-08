@@ -1,19 +1,48 @@
 .cashier {
   background-color: red;
   display: flex;
+
   //height: 100vh;
   .cashier-left {
     background-color: blue;
     height: 100vh;
     width: 70%;
+
     .navbar {
       height: 50px;
       background-color: aqua;
     }
+
+    .navbar-categories {
+      display: flex;
+
+      button {
+        margin: 10px 10px 0;
+        border: 5px solid black;
+        border-radius: 10px;
+        padding: 5px;
+      }
+    }
+
+    .card-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, .16666666667fr));
+    }
   }
+
   .cashier-right {
     background-color: purple;
     height: 100vh;
     width: 30%;
+
+    .list-wrapper {
+      height: 80vh;
+      overflow-y: scroll;
+    }
+
+    .list-amount {
+      background-color: white;
+      height: 20vh;
+    }
   }
 }
