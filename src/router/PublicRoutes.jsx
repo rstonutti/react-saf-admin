@@ -7,8 +7,8 @@ const user = {
   logged: false,
 };
 
-export const PublicRoutes = ({ children }) => {
+export const PublicRoutes = ({ isLogged, children }) => {
   //const { user } = useContext(AuthContext )
 
-  return user.logged ? <Navigate to="/" /> : children;
+  return isLogged ? <Navigate to="/" /> : children;
 };

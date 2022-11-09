@@ -129,7 +129,9 @@ export function shoppingRecuder(state, action) {
           };
     }
     case TYPES.REMOVE_ONE_FROM_CART: {
-      let itemToDelete = state.cart.find((item) => item.uid === action.payload);
+      let itemToDelete = state.cart.find(
+        (item) => item.uid === action.payload.id
+      );
 
       return itemToDelete.cantidad > 1
         ? {
@@ -154,7 +156,7 @@ export function shoppingRecuder(state, action) {
           }
         : {
             ...state,
-            cart: state.cart.filter((item) => item.uid !== action.payload),
+            cart: state.cart.filter((item) => item.uid !== action.payload.id),
             products: state.products.map((items) =>
               items.uid === action.payload.id
                 ? {

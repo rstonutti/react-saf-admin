@@ -16,20 +16,20 @@
     align-items: center;
     background-color: aqua;
     display: flex;
-    flex: 10 10%;
+    flex: 6 10%;
   }
 
   .list-icon {
     background-color: red;
     display: flex;
-    flex: 1;
+    flex: 2;
     justify-content: space-around;
   }
 
   .list-price {
     display: flex;
     background-color: aqua;
-    flex: 1;
+    flex: 2;
     justify-content: center;
   }
 }
