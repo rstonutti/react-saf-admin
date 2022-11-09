@@ -28,8 +28,10 @@ const Cashier = () => {
   const orden = {};
 
   const cargarProductos = async () => {
-    const resp = await fetchSinToken();
-    `api/v1/productos?desde=0&limite=20&punto=${destino}`;
+    const resp = await fetchSinToken(
+      `api/v1/productos?desde=0&limite=20&punto=${destino}`
+    );
+
     const { productos } = await resp.json();
 
     if (resp.ok) {
