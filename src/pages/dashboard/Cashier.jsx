@@ -14,7 +14,7 @@ import { TYPES } from "../../actions/shoppingActions";
 import { getAmount } from "../../helpers/amount";
 
 const Cashier = () => {
-  /* const [punto, setPunto] = useState([]); */
+  const [punto, setPunto] = useState("635abb0158786cb20862d056");
 
   const [reload, setReload] = useState(false);
 
@@ -30,10 +30,10 @@ const Cashier = () => {
     );
     const { productos } = await resp.json();
 
-    /* const respPuntos = await fetchSinToken("api/v1/puntos?desde=0&limite=20");
+    const respPuntos = await fetchSinToken("api/v1/puntos?desde=0&limite=20");
     const { puntos } = await respPuntos.json();
 
-    setPunto(puntos); */
+    setPunto(puntos);
 
     if (resp.ok) {
       setReload(false);
@@ -48,26 +48,26 @@ const Cashier = () => {
   const addCart = (id) => {
     dispatch({
       type: TYPES.ADD_TO_CART,
-      payload: id,
+      payload: { id, punto }
     });
   };
 
   const filterProducts = (categoria) => {
     categoria === "clear"
       ? dispatch({
-          type: TYPES.CLEAR_FILTER_PRODUCT,
-        })
+        type: TYPES.CLEAR_FILTER_PRODUCT,
+      })
       : dispatch({
-          type: TYPES.FILTER_PRODUCT,
-          payload: categoria,
-        });
+        type: TYPES.FILTER_PRODUCT,
+        payload: categoria,
+      });
   };
 
   const delFromCart = (id, all = false) => {
     if (all) {
-      dispatch({ type: TYPES.REMOVE_ALL_FROM_CART, payload: id });
+      dispatch({ type: TYPES.REMOVE_ALL_FROM_CART, payload: { id, punto } });
     } else {
-      dispatch({ type: TYPES.REMOVE_ONE_FROM_CART, payload: id });
+      dispatch({ type: TYPES.REMOVE_ONE_FROM_CART, payload: { id, punto } });
     }
   };
 
@@ -77,9 +77,10 @@ const Cashier = () => {
     });
   };
 
-  /* const handleChange = (e) => {
+  const handleChange = (e) => {
     console.log(e.target.value);
-  }; */
+    //setPunto(e.target.value)
+  };
 
   const submitOrder = async () => {
     if (cart.length != 0) {
@@ -140,13 +141,13 @@ const Cashier = () => {
       <div className="cashier-left">
         <div className="navbar">
           <h1>Soberanía Alimentaria Formoseña</h1>
-          {/* <select name="punto" id="punto" onChange={handleChange}>
+          <select name="punto" id="punto" onChange={handleChange}>
             {punto.map((element) => (
               <option key={element.uid} value={element.uid}>
                 {element.barrio}
               </option>
             ))}
-          </select> */}
+          </select>
         </div>
         <div className="navbar-categories">
           {categories.map((item) => (
@@ -170,11 +171,11 @@ const Cashier = () => {
         <div className="card-wrapper">
           {filter
             ? filter.map((item) => (
-                <Card key={item.uid} addCart={addCart} {...item} />
-              ))
+              <Card key={item.uid} addCart={addCart} {...item} />
+            ))
             : products.map((item) => (
-                <Card key={item.uid} addCart={addCart} {...item} />
-              ))}
+              <Card key={item.uid} addCart={addCart} {...item} />
+            ))}
         </div>
       </div>
       <div className="cashier-right">

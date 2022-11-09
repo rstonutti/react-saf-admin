@@ -46,7 +46,7 @@ export function shoppingRecuder(state, action) {
     }
     case TYPES.ADD_TO_CART: {
       let { destino, ...newItem } = state.products.find(
-        (product) => product.uid === action.payload
+        (product) => product.uid === action.payload.id
       );
       //console.log(newItem);
 
@@ -55,7 +55,7 @@ export function shoppingRecuder(state, action) {
       let producto = state.products.find((item) => item.uid === newItem.uid);
 
       let { cantidad } = producto.destino.find(
-        (item) => item.punto === "635abb0158786cb20862d056"
+        (item) => item.punto === action.payload.punto
       );
 
       /* const cositas = state.products.map((items) =>
@@ -99,7 +99,7 @@ export function shoppingRecuder(state, action) {
                 ? {
                     ...items,
                     destino: items.destino.map((item) =>
-                      item.punto === "635abb0158786cb20862d056"
+                      item.punto === action.payload.punto
                         ? {
                             ...item,
                             cantidad:
@@ -119,7 +119,7 @@ export function shoppingRecuder(state, action) {
                 ? {
                     ...items,
                     destino: items.destino.map((item) =>
-                      item.punto === "635abb0158786cb20862d056"
+                      item.punto === action.payload.punto
                         ? { ...item, cantidad: item.cantidad - 1 }
                         : item
                     ),
@@ -135,16 +135,16 @@ export function shoppingRecuder(state, action) {
         ? {
             ...state,
             cart: state.cart.map((item) =>
-              item.uid === action.payload
+              item.uid === action.payload.id
                 ? { ...item, cantidad: item.cantidad - 1 }
                 : item
             ),
             products: state.products.map((items) =>
-              items.uid === action.payload
+              items.uid === action.payload.id
                 ? {
                     ...items,
                     destino: items.destino.map((item) =>
-                      item.punto === "635abb0158786cb20862d056"
+                      item.punto === action.payload.punto
                         ? { ...item, cantidad: item.cantidad + 1 }
                         : item
                     ),
@@ -156,11 +156,11 @@ export function shoppingRecuder(state, action) {
             ...state,
             cart: state.cart.filter((item) => item.uid !== action.payload),
             products: state.products.map((items) =>
-              items.uid === action.payload
+              items.uid === action.payload.id
                 ? {
                     ...items,
                     destino: items.destino.map((item) =>
-                      item.punto === "635abb0158786cb20862d056"
+                      item.punto === action.payload.punto
                         ? { ...item, cantidad: item.cantidad + 1 }
                         : item
                     ),

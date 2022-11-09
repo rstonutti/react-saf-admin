@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 //import { AuthContext } from '../auth/AuthContext';
 
 const user = {
-  logged: true,
+  logged: false,
 };
 
 export const PrivateRoutes = ({ children }) => {

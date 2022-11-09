@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    margin: 0 10%;
+    height: 100vh;
+
+    .left {
+        background-color: red;
+        width: 50%;
+    }
+
+    .right {
+        background-color: blue;
+        width: 50%;
+    }
+}
