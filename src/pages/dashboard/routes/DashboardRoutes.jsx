@@ -1,11 +1,13 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Home from "../Home";
-import Cashier from "../Cashier";
+import Cashier from "../cashier/Cashier";
+import Home from "../home/Home";
+import Inventory from "@mui/icons-material/Inventory";
 
 export const DashboardRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/stock" element={<Inventory />} />
       <Route path="/pos" element={<Cashier />} />
 
       {/* <Route path="/*" element={<Navigate to="/" />} /> */}

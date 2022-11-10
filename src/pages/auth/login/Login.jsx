@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/authContext";
-import { fetchSinToken } from "../../helpers/fetch";
-import { useForm } from "../../hooks/useForm";
-import "./styles/login.scss";
+import { AuthContext } from "../../../contexts/authContext";
+import { fetchSinToken } from "../../../helpers/fetch";
+import { useForm } from "../../../hooks/useForm";
+import "./login.scss";
 
 export const Login = () => {
   const { dispatch } = useContext(AuthContext);

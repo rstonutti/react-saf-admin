@@ -1,12 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import { PrivateRoutes } from "./PrivateRoutes";
-import { PublicRoutes } from "./PublicRoutes";
-
 import { AuthRoutes } from "../pages/auth/routes/AuthRoutes";
 import { DashboardRoutes } from "../pages/dashboard/routes/DashboardRoutes";
-import { useContext, useEffect } from "react";
+import { PrivateRoutes } from "./PrivateRoutes";
+import { PublicRoutes } from "./PublicRoutes";
 import { AuthContext } from "../contexts/authContext";
+import { useContext, useEffect } from "react";
 import { fetchConToken } from "../helpers/fetch";
 
 export const AppRouter = () => {

@@ -12,8 +12,20 @@ import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import SettingsIcon from "@mui/icons-material/Settings";
 import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 import StyleIcon from "@mui/icons-material/Style";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/authContext";
 
 const Sidebar = () => {
+  const { dispatch } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch({
+      type: 'LOGOUT'
+    })
+  };
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -55,12 +67,12 @@ const Sidebar = () => {
           <p className="title">Inventario</p>
           <li>
             <InventoryIcon className="icon" />
-            <span>Stock</span>
+            <span>Inventario</span>
           </li>
           <p className="title">Facturación</p>
           <li>
             <PaymentIcon className="icon" />
-            <span>Cajero</span>
+            <Link to="/pos"><span>Cajero</span></Link>
           </li>
           <p className="title">Usuario</p>
           <li>
@@ -73,7 +85,7 @@ const Sidebar = () => {
           </li>
           <li>
             <LogoutIcon className="icon" />
-            <span>Logout</span>
+            <Link className="nav-link" to="/" onClick={handleLogout}><span>Logout</span></Link>
           </li>
         </ul>
       </div>

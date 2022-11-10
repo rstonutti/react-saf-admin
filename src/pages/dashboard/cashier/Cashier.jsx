@@ -1,18 +1,16 @@
 import { useContext, useEffect, useReducer, useState } from "react";
-import "./styles/cashier.scss";
-
-import { fetchSinToken, fetchConToken } from "../../helpers/fetch";
-import { getProducts } from "../../helpers/products";
-
-import Card from "../../components/card/Card";
-import List from "../../components/list/List";
+import { fetchSinToken, fetchConToken } from "../../../helpers/fetch";
 import {
   shoppingInitialState,
   shoppingRecuder,
-} from "../../reducers/shoppingReducer";
-import { TYPES } from "../../actions/shoppingActions";
-import { getAmount } from "../../helpers/amount";
-import { AuthContext } from "../../contexts/authContext";
+} from "../../../reducers/shoppingReducer";
+import { TYPES } from "../../../actions/shoppingActions";
+import { AuthContext } from "../../../contexts/authContext";
+import { getAmount } from "../../../helpers/amount";
+import Card from "../../../components/card/Card";
+import List from "../../../components/list/List";
+
+import "./cashier.scss";
 
 const Cashier = () => {
   const {
@@ -54,12 +52,12 @@ const Cashier = () => {
   const filterProducts = (categoria) => {
     categoria === "clear"
       ? dispatch({
-          type: TYPES.CLEAR_FILTER_PRODUCT,
-        })
+        type: TYPES.CLEAR_FILTER_PRODUCT,
+      })
       : dispatch({
-          type: TYPES.FILTER_PRODUCT,
-          payload: categoria,
-        });
+        type: TYPES.FILTER_PRODUCT,
+        payload: categoria,
+      });
   };
 
   const delFromCart = (id, all = false) => {
@@ -169,11 +167,11 @@ const Cashier = () => {
         <div className="card-wrapper">
           {filter
             ? filter.map((item) => (
-                <Card key={item.uid} addCart={addCart} {...item} />
-              ))
+              <Card key={item.uid} addCart={addCart} {...item} />
+            ))
             : products.map((item) => (
-                <Card key={item.uid} addCart={addCart} {...item} />
-              ))}
+              <Card key={item.uid} addCart={addCart} {...item} />
+            ))}
         </div>
       </div>
       <div className="cashier-right">
