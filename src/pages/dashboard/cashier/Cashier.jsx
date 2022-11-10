@@ -30,14 +30,14 @@ const Cashier = () => {
       `api/v1/productos?desde=0&limite=20&punto=${destino}`
     );
 
-    const { productos } = await resp.json();
+    const { productos, categorias } = await resp.json();
 
     if (resp.ok) {
       setReload(false);
 
       dispatch({
         type: "ADD_PRODUCT",
-        payload: productos,
+        payload: { productos, categorias },
       });
     }
   };

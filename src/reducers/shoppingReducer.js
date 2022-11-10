@@ -9,19 +9,21 @@ export const shoppingInitialState = {
 export function shoppingRecuder(state, action) {
   switch (action.type) {
     case TYPES.ADD_PRODUCT: {
-      let categorias = [];
+
+      //Ahora esto lo hace desde el backend
+      /* let categorias = [];
 
       action.payload.forEach((c) => {
         if (!categorias.includes(c.categoria.nombre)) {
           categorias = [c.categoria.nombre, ...categorias];
         }
-      });
+      }); */
 
       return {
         ...state,
-        initialProducts: [...action.payload],
-        products: [...action.payload],
-        categories: categorias,
+        initialProducts: [...action.payload.productos],
+        products: [...action.payload.productos],
+        categories: action.payload.categorias,
         loading: false,
       };
     }
@@ -85,48 +87,48 @@ export function shoppingRecuder(state, action) {
 
       return itemInCart
         ? {
-            ...state,
-            cart: state.cart.map((item) =>
-              item.uid === newItem.uid
-                ? {
-                    ...item,
-                    cantidad: cantidad > 0 ? item.cantidad + 1 : item.cantidad,
-                  }
-                : item
-            ),
-            products: state.products.map((items) =>
-              items.uid === newItem.uid
-                ? {
-                    ...items,
-                    destino: items.destino.map((item) =>
-                      item.punto === action.payload.punto
-                        ? {
-                            ...item,
-                            cantidad:
-                              cantidad > 0 ? item.cantidad - 1 : item.cantidad,
-                          }
-                        : item
-                    ),
-                  }
-                : items
-            ),
-          }
+          ...state,
+          cart: state.cart.map((item) =>
+            item.uid === newItem.uid
+              ? {
+                ...item,
+                cantidad: cantidad > 0 ? item.cantidad + 1 : item.cantidad,
+              }
+              : item
+          ),
+          products: state.products.map((items) =>
+            items.uid === newItem.uid
+              ? {
+                ...items,
+                destino: items.destino.map((item) =>
+                  item.punto === action.payload.punto
+                    ? {
+                      ...item,
+                      cantidad:
+                        cantidad > 0 ? item.cantidad - 1 : item.cantidad,
+                    }
+                    : item
+                ),
+              }
+              : items
+          ),
+        }
         : {
-            ...state,
-            cart: [...state.cart, { ...newItem, cantidad: 1 }],
-            products: state.products.map((items) =>
-              items.uid === newItem.uid
-                ? {
-                    ...items,
-                    destino: items.destino.map((item) =>
-                      item.punto === action.payload.punto
-                        ? { ...item, cantidad: item.cantidad - 1 }
-                        : item
-                    ),
-                  }
-                : items
-            ),
-          };
+          ...state,
+          cart: [...state.cart, { ...newItem, cantidad: 1 }],
+          products: state.products.map((items) =>
+            items.uid === newItem.uid
+              ? {
+                ...items,
+                destino: items.destino.map((item) =>
+                  item.punto === action.payload.punto
+                    ? { ...item, cantidad: item.cantidad - 1 }
+                    : item
+                ),
+              }
+              : items
+          ),
+        };
     }
     case TYPES.REMOVE_ONE_FROM_CART: {
       let itemToDelete = state.cart.find(
@@ -135,41 +137,41 @@ export function shoppingRecuder(state, action) {
 
       return itemToDelete.cantidad > 1
         ? {
-            ...state,
-            cart: state.cart.map((item) =>
-              item.uid === action.payload.id
-                ? { ...item, cantidad: item.cantidad - 1 }
-                : item
-            ),
-            products: state.products.map((items) =>
-              items.uid === action.payload.id
-                ? {
-                    ...items,
-                    destino: items.destino.map((item) =>
-                      item.punto === action.payload.punto
-                        ? { ...item, cantidad: item.cantidad + 1 }
-                        : item
-                    ),
-                  }
-                : items
-            ),
-          }
+          ...state,
+          cart: state.cart.map((item) =>
+            item.uid === action.payload.id
+              ? { ...item, cantidad: item.cantidad - 1 }
+              : item
+          ),
+          products: state.products.map((items) =>
+            items.uid === action.payload.id
+              ? {
+                ...items,
+                destino: items.destino.map((item) =>
+                  item.punto === action.payload.punto
+                    ? { ...item, cantidad: item.cantidad + 1 }
+                    : item
+                ),
+              }
+              : items
+          ),
+        }
         : {
-            ...state,
-            cart: state.cart.filter((item) => item.uid !== action.payload.id),
-            products: state.products.map((items) =>
-              items.uid === action.payload.id
-                ? {
-                    ...items,
-                    destino: items.destino.map((item) =>
-                      item.punto === action.payload.punto
-                        ? { ...item, cantidad: item.cantidad + 1 }
-                        : item
-                    ),
-                  }
-                : items
-            ),
-          };
+          ...state,
+          cart: state.cart.filter((item) => item.uid !== action.payload.id),
+          products: state.products.map((items) =>
+            items.uid === action.payload.id
+              ? {
+                ...items,
+                destino: items.destino.map((item) =>
+                  item.punto === action.payload.punto
+                    ? { ...item, cantidad: item.cantidad + 1 }
+                    : item
+                ),
+              }
+              : items
+          ),
+        };
     }
     case TYPES.REMOVE_ALL_FROM_CART: {
     }

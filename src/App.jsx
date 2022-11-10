@@ -2,7 +2,6 @@ import { useReducer } from "react";
 import { authReducer } from "./reducers/authReducer";
 import { AppRouter } from "./router/AppRouter";
 import { AuthContext } from "./contexts/authContext";
-import "./App.css";
 
 const init = () => ({
   checking: true,
