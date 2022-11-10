@@ -1,11 +1,12 @@
 .list-container {
-  align-items: center;
-  background-color: darkred;
-  border: 5px solid black;
+  //align-items: center;
+  align-content: space-around;
+  background-color: #f2f2f2;
+  border: 1px solid white;
   border-radius: 10px;
   display: flex;
-  min-width: 75%;
-  justify-content: space-between;
+  min-width: 250px;
+  //justify-content: space-between;
   margin: 10px;
   padding: 5px;
 
@@ -14,23 +15,48 @@
 
   .list-img {
     align-items: center;
-    background-color: aqua;
+    //background-color: aqua;
     display: flex;
     flex: 6 10%;
+
+    img {
+      border: 1px solid black;
+      border-radius: 5px;
+    }
   }
 
-  .list-icon {
-    background-color: red;
-    display: flex;
-    flex: 2;
+  .list-name {
+    margin: var(--space-2xs);
+  }
+
+  .cantidades {
     justify-content: space-around;
-  }
-
-  .list-price {
     display: flex;
-    background-color: aqua;
-    flex: 2;
-    justify-content: center;
+    flex-direction: column;
+    min-width: 20%;
+
+    .list-icon {
+      //background-color: red;
+      color: #003667;
+      display: flex;
+      justify-content: space-around;
+
+      .icon {
+        &:hover {
+          transition: 0.5s;
+          color: #016764;
+          opacity: 80%;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .list-price {
+
+      //background-color: aqua;
+
+      text-align: center;
+    }
   }
 }
 

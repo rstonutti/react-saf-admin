@@ -1,8 +1,13 @@
 import { Image, Transformation } from "cloudinary-react";
+import { capitalizeFirstLetter } from "../../helpers/capitalize-first-letter";
 
 import "./card.scss";
 
-const Card = ({ img, nombre, precio, uid, addCart }) => {
+const Card = ({ img, nombre, precio, uid, designado, destino, addCart }) => {
+  let cantidad;
+  if (destino) {
+    cantidad = destino.find((punto) => punto.punto === designado);
+  }
   return (
     <div className="card-container" key={uid}>
       <div className="card-img">
@@ -16,11 +21,23 @@ const Card = ({ img, nombre, precio, uid, addCart }) => {
         </Image>
       </div>
       <div className="card-title">
-        <div>
-          <div className="card-name">{nombre}</div>
-          <div className="card-price">{`$${precio}`}</div>
+        <div className="card-title-left">
+          <div className="card-name">
+            <b>{capitalizeFirstLetter(nombre.toLowerCase())}</b>
+          </div>
+          <div className="card-cantidad">
+            {cantidad ? (
+              <div className="card-cantidad-contenido step--1">
+                <span>Cantidad: {cantidad.cantidad}</span>
+              </div>
+            ) : null}
+          </div>
+          <div className="card-price step--1">Precio: {`$${precio}`}</div>
         </div>
-        <button onClick={() => addCart(uid)}>Agregar</button>
+
+        <button className="step--1" onClick={() => addCart(uid)}>
+          Agregar
+        </button>
       </div>
     </div>
   );

@@ -4,48 +4,109 @@
 
   //height: 100vh;
   .cashier-left {
-    background-color: blue;
+    background-color: #f2f2f2;
     height: 100vh;
     width: 70%;
 
     .navbar {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
       height: 50px;
-      background-color: aqua;
+      //background-color: aqua;
+
+      .title {
+        padding: 10px;
+      }
     }
 
     .navbar-categories {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(80px, 120px));
+      background-color: #003667;
 
       button {
-        margin: 10px 10px 0;
-        border: 5px solid black;
+        margin: 10px 10px;
+        border: none;
+        //border: 1px solid white;
         border-radius: 10px;
         padding: 5px;
+        //width: clamp(80px, 100px, 120px);
       }
     }
 
     .card-wrapper {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     }
   }
 
   //.16666666667
 
   .cashier-right {
-    background-color: purple;
+    background-color: #003667;
     height: 100vh;
     width: 30%;
 
     .list-wrapper {
       height: 80vh;
       overflow-y: scroll;
+
     }
 
     .list-amount {
-      background-color: white;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       height: 20vh;
+
+      button {
+        background-color: #f2f2f2;
+        color: #003667;
+        //padding: 5px 5px;
+        //border-radius: .5rem;
+        transition: all .15s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        //min-width: 34%;
+        //margin: 10px 10px 0;
+        //border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+
+        cursor: pointer;
+      }
+
+      .list-amount-contenido {
+        display: flex;
+
+        input {
+          background-color: #003667;
+          margin: var(--space-2xs);
+          border: 2px solid white;
+          border-radius: 5px;
+          color: white;
+          text-align: center;
+          width: 50%;
+          font-family: sans-serif;
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+
+
+
+      }
     }
   }
 }
