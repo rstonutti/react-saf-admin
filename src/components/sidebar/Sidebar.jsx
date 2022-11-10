@@ -35,10 +35,12 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">Principal</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <Link to="/"><span>Dashboard</span></Link>
-          </li>
+          <Link to="/">
+            <li>
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
           <p className="title">Listas</p>
           <li>
             <PersonOutlineIcon className="icon" />
@@ -65,15 +67,19 @@ const Sidebar = () => {
             <span>Estadistícas</span>
           </li> */}
           <p className="title">Inventario</p>
-          <li>
-            <InventoryIcon className="icon" />
-            <Link to="/stock"><span>Inventario</span></Link>
-          </li>
+          <Link to="/stock">
+            <li>
+              <InventoryIcon className="icon" />
+              <span>Inventario</span>
+            </li>
+          </Link>
           <p className="title">Facturación</p>
-          <li>
-            <PaymentIcon className="icon" />
-            <Link to="/pos"><span>Cajero</span></Link>
-          </li>
+          <Link to="/pos">
+            <li>
+              <PaymentIcon className="icon" />
+              <span>Cajero</span>
+            </li>
+          </Link>
           <p className="title">Usuario</p>
           <li>
             <AccountCircleIcon className="icon" />
@@ -83,10 +89,12 @@ const Sidebar = () => {
             <SettingsIcon className="icon" />
             <span>Configuración</span>
           </li>
-          <li>
-            <LogoutIcon className="icon" />
-            <Link className="nav-link" to="/" onClick={handleLogout}><span>Logout</span></Link>
-          </li>
+          <Link className="nav-link" to="/" onClick={handleLogout}>
+            <li>
+              <LogoutIcon className="icon" />
+              <span>Logout</span>
+            </li>
+          </Link>
         </ul>
       </div>
       {/* <div className="bottom">Algo</div> */}
