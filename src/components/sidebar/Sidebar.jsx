@@ -37,7 +37,7 @@ const Sidebar = () => {
           <p className="title">Principal</p>
           <li>
             <DashboardIcon className="icon" />
-            <span>Dashboard</span>
+            <Link to="/"><span>Dashboard</span></Link>
           </li>
           <p className="title">Listas</p>
           <li>
@@ -60,14 +60,14 @@ const Sidebar = () => {
             <ListAltIcon className="icon" />
             <span>Ordenes</span>
           </li>
-          <li>
+          {/* <li>
             <QueryStatsIcon className="icon" />
             <span>Estadistícas</span>
-          </li>
+          </li> */}
           <p className="title">Inventario</p>
           <li>
             <InventoryIcon className="icon" />
-            <span>Inventario</span>
+            <Link to="/stock"><span>Inventario</span></Link>
           </li>
           <p className="title">Facturación</p>
           <li>

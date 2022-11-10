@@ -1,7 +1,17 @@
 import "./inventory.scss"
+import Navbar from "../../../components/navbar/Navbar";
+import Sidebar from "../../../components/sidebar/Sidebar";
 
-export const Inventory = () => {
+const Inventory = () => {
     return (
-        <div>Inventory</div>
+        <div className="stock">
+            <Sidebar />
+            <div className="stock-container">
+                <Navbar />
+                Inventario
+            </div>
+        </div>
     )
 }
+
+export default Inventory;
