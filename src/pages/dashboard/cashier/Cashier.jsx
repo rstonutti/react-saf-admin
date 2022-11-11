@@ -84,6 +84,7 @@ const Cashier = () => {
   };
 
   const clearCart = () => {
+    setCambio(0);
     dispatch({
       type: TYPES.CLEAR_CART,
     });
@@ -155,7 +156,7 @@ const Cashier = () => {
       <div className="cashier-left">
         <div className="navbar">
           <div className="title step-3">Point of Sale</div>
-          <div className="title step-0">Hola, {nombre} 👋!</div>
+          <div className="title step-0">Hola, {nombre} 👋❕</div>
           {/* <select name="punto" id="punto" onChange={handleChange}>
             {punto.map((element) => (
               <option key={element.uid} value={element.uid}>
@@ -219,44 +220,52 @@ const Cashier = () => {
               />
             ))
           ) : (
-            <div>Nada por aquí... </div>
+            <div className="vacio">
+              <p>Nada por aquí... 📋</p>
+            </div>
           )}
         </div>
         <div className="list-amount">
-          <div className="list-amount-contenido">
-            <div>Monto: ${getAmount(cart)}</div>
+          <div className="list-amount-contenido-left">
+            <div className="grid-left">Monto:</div>
+            <div className="grid-left">Efectivo:</div>
+            <div className="grid-left">Cambio:</div>
+            <div className="grid-left">
+              <button
+                onClick={() => {
+                  submitOrder();
+                }}
+              >
+                Enviar
+              </button>
+            </div>
           </div>
           <div className="list-amount-contenido">
-            <div>
-              Efectivo:
+            <div className="grid">${getAmount(cart)}</div>
+            <div className="grid">
               <input
                 type="number"
                 name="efectivo"
                 id="efectivo"
+                value={cambio}
                 onChange={handleChange}
               />
             </div>
-          </div>
-          <div className="list-amount-contenido">
-            <div>
-              Cambio: ${cambio > getAmount(cart) ? cambio - getAmount(cart) : 0}
+            <div className="grid">
+              $
+              {cambio > getAmount(cart) && getAmount(cart) != 0
+                ? cambio - getAmount(cart)
+                : 0}
             </div>
-          </div>
-          <div>
-            <button
-              onClick={() => {
-                submitOrder();
-              }}
-            >
-              Enviar
-            </button>
-            <button
-              onClick={() => {
-                clearCart();
-              }}
-            >
-              Limpiar
-            </button>
+            <div className="grid">
+              <button
+                onClick={() => {
+                  clearCart();
+                }}
+              >
+                Limpiar
+              </button>
+            </div>
           </div>
         </div>
       </div>

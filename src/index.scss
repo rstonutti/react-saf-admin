@@ -110,7 +110,7 @@ button:focus-visible {
 
 html {
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: calc(12px + (18 - 12) * ((100vw - 320px)/(1920 - 320)));
   font-family: "Raleway", sans-serif;
 }
 
@@ -118,10 +118,6 @@ html {
 *:after,
 *::before {
   box-sizing: inherit;
-}
-
-body {
-  font-size: calc(12px + (18 - 12) * ((100vw - 320px)/(1920 - 320)));
 }
 
 ::-webkit-scrollbar {

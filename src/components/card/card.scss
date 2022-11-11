@@ -1,7 +1,7 @@
 .card-container {
-    margin: 10px;
+    margin: 1rem;
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 1rem;
     padding: var(--space-2xs);
     background-color: #fff;
 
@@ -26,9 +26,9 @@
             transition: all .15s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             min-width: 34%;
-            margin: 10px 10px 0;
+            //margin: 1rem 1rem 0;
             //border: 1px solid black;
-            border-radius: 10px;
+            border-radius: .5rem;
             padding: 5px;
 
             cursor: pointer;
@@ -51,7 +51,7 @@
             //background-color: red;
             display: flex;
             align-items: center;
-            min-height: 38px;
+            min-height: 2em;
         }
 
         .card-cantidad {
@@ -66,9 +66,9 @@
             background-color: #0a0a23;
             color: #fff;
             border: none;
-            border-radius: 5px;
-            margin: 5px;
-            padding: 5px;
+            border-radius: .5rem;
+            margin: .5rem;
+            padding: .5rem;
 
             /* min-height: 30px;
             min-width: 120px; */
