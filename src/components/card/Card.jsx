@@ -6,7 +6,7 @@ import "./card.scss";
 const Card = ({ img, nombre, precio, uid, designado, destino, addCart }) => {
   let cantidad;
   if (destino) {
-    cantidad = destino.find((punto) => punto.punto === designado);
+    cantidad = destino.find((lugares) => lugares.punto._id === designado);
   }
   return (
     <div className="card-container" key={uid}>

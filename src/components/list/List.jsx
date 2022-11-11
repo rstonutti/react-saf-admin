@@ -19,7 +19,8 @@ const List = ({
   addCart,
   delFromCart,
 }) => {
-  let disponible = destino.find((punto) => punto.punto === designado);
+  let disponible = destino.find((lugares) => lugares.punto._id === designado);
+
   return (
     <div className="list-container" key={uid}>
       <div className="list-img">

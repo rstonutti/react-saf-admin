@@ -4,6 +4,7 @@ export const shoppingInitialState = {
   products: [],
   cart: [],
   loading: true,
+  reload: false,
 };
 
 export function shoppingRecuder(state, action) {
@@ -11,6 +12,7 @@ export function shoppingRecuder(state, action) {
     case TYPES.ADD_PRODUCT: {
       return {
         ...state,
+        initialProducts: [...action.payload.productos],
         products: [...action.payload.productos],
         categories: action.payload.categorias,
         loading: false,
@@ -18,18 +20,15 @@ export function shoppingRecuder(state, action) {
       };
     }
     case TYPES.ADD_TO_CART: {
-      let { ...newItem } = state.products.find(
+      let producto;
+      let newItem = state.products.find(
         (product) => product.uid === action.payload.id
       );
-
-      let producto;
-
       let itemInCart = state.cart.find((item) => item.uid === newItem.uid);
 
       if (itemInCart) {
-        console.log(itemInCart.destino, "aber");
         producto = itemInCart.destino.find(
-          (item) => item.punto === action.payload.punto
+          (item) => item.punto._id === action.payload.punto
         );
       }
 
@@ -59,6 +58,7 @@ export function shoppingRecuder(state, action) {
       return itemInCart
         ? {
             ...state,
+            reload: false,
             cart: state.cart.map((productos) =>
               productos.uid === newItem.uid
                 ? {
@@ -68,7 +68,7 @@ export function shoppingRecuder(state, action) {
                         ? productos.cantidad + 1
                         : productos.cantidad,
                     destino: productos.destino.map((destinos) =>
-                      destinos.punto === action.payload.punto
+                      destinos.punto._id === action.payload.punto
                         ? {
                             ...destinos,
                             cantidad:
@@ -101,13 +101,14 @@ export function shoppingRecuder(state, action) {
           }
         : {
             ...state,
+            reload: false,
             cart: [
               ...state.cart,
               {
                 ...newItem,
                 cantidad: 1,
                 destino: newItem.destino.map((item) =>
-                  item.punto === action.payload.punto
+                  item.punto._id === action.payload.punto
                     ? {
                         ...item,
                         cantidad: item.cantidad - 1,
@@ -138,6 +139,7 @@ export function shoppingRecuder(state, action) {
       return itemToDelete.cantidad > 1
         ? {
             ...state,
+            reload: false,
             cart: state.cart.map((productos) =>
               productos.uid === action.payload.id
                 ? {
@@ -145,7 +147,7 @@ export function shoppingRecuder(state, action) {
                     cantidad: productos.cantidad - 1,
                     //de acá
                     destino: productos.destino.map((destinos) =>
-                      destinos.punto === action.payload.punto
+                      destinos.punto._id === action.payload.punto
                         ? { ...destinos, cantidad: destinos.cantidad + 1 }
                         : destinos
                     ),
@@ -168,6 +170,7 @@ export function shoppingRecuder(state, action) {
           }
         : {
             ...state,
+            reload: false,
             cart: state.cart.filter((item) => item.uid !== action.payload.id),
             /* products: state.products.map((items) =>
               items.uid === action.payload.id
@@ -188,14 +191,16 @@ export function shoppingRecuder(state, action) {
 
       return {
         ...rest,
-        products: state.products,
+        products: state.initialProducts,
+        reload: false,
         cart: [],
       };
     }
     case TYPES.FILTER_PRODUCT: {
       return {
         ...state,
-        filter: state.products.filter(
+        reload: false,
+        products: state.initialProducts.filter(
           (element) => element.categoria.nombre === action.payload
         ),
       };
@@ -204,6 +209,7 @@ export function shoppingRecuder(state, action) {
       const { filter, ...rest } = state;
       return {
         ...rest,
+        products: state.initialProducts,
       };
     }
     case TYPES.CREATE_ORDER: {
@@ -227,6 +233,13 @@ export function shoppingRecuder(state, action) {
           montoTotal: action.payload.montoTotal,
           punto: action.payload.desginado,
         },
+        reload: false,
+      };
+    }
+    case TYPES.SUBMIT_ORDER: {
+      return {
+        ...state,
+        cart: [],
         reload: true,
       };
     }

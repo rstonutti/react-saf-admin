@@ -18,16 +18,15 @@ const Cashier = () => {
     state: { uid, designado, nombre },
   } = useContext(AuthContext);
 
-  const [
-    { products, filter, cart, categories, orden, loading, reload },
-    dispatch,
-  ] = useReducer(shoppingRecuder, shoppingInitialState);
+  const [{ products, cart, categories, orden, loading, reload }, dispatch] =
+    useReducer(shoppingRecuder, shoppingInitialState);
 
   //Tratar de resolverlo con un reducer
   //const [reload, setReload] = useState(false);
   /* const orden = {}; */
 
   const [cambio, setCambio] = useState(0);
+  console.log(reload, "reload");
 
   const cargarProductos = async () => {
     const resp = await fetchSinToken(
@@ -109,6 +108,9 @@ const Cashier = () => {
       const resp = await fetchConToken("api/v1/ordenes", { orden }, "POST");
       //Tratar de manejarlo con reducer
       if (resp.ok) {
+        dispatch({
+          type: "SUBMIT_ORDER",
+        });
         clearCart();
       }
 
@@ -133,10 +135,10 @@ const Cashier = () => {
 
   useEffect(() => {
     cargarProductos();
+    console.log("prueba");
   }, [reload]);
 
   useEffect(() => {
-    console.log("aver");
     dispatch({
       type: "CREATE_ORDER",
       payload: { designado, montoTotal: getAmount(cart) },
@@ -187,23 +189,14 @@ const Cashier = () => {
           </button>
         </div>
         <div className="card-wrapper">
-          {filter
-            ? filter.map((item) => (
-                <Card
-                  key={item.uid}
-                  addCart={addCart}
-                  designado={designado}
-                  {...item}
-                />
-              ))
-            : products.map((item) => (
-                <Card
-                  key={item.uid}
-                  addCart={addCart}
-                  designado={designado}
-                  {...item}
-                />
-              ))}
+          {products.map((item) => (
+            <Card
+              key={item.uid}
+              addCart={addCart}
+              designado={designado}
+              {...item}
+            />
+          ))}
         </div>
       </div>
       <div className="cashier-right">
