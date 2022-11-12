@@ -25,7 +25,7 @@ const Cashier = () => {
   //const [reload, setReload] = useState(false);
   /* const orden = {}; */
 
-  const [cambio, setCambio] = useState(0);
+  const [cambio, setCambio] = useState();
   console.log(reload, "reload");
 
   const cargarProductos = async () => {
@@ -153,7 +153,7 @@ const Cashier = () => {
     <div className="cashier">
       <div className="cashier-left">
         <div className="navbar">
-          <div className="title step-3">Punto de venta</div>
+          <div className="title step-2">Punto de venta</div>
           <div className="title step-0">Hola, {nombre} 👋❕</div>
           {/* <select name="punto" id="punto" onChange={handleChange}>
             {punto.map((element) => (
