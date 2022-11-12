@@ -37,7 +37,7 @@ const List = ({
             <b>{capitalizeFirstLetter(nombre.toLowerCase())}</b>
           </div>
           <div className="list-name-contenido step--1">
-            Restante: {disponible.cantidad}
+            Cant. restante: {disponible.cantidad}
           </div>
         </div>
       </div>

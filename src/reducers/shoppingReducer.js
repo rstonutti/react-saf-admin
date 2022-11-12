@@ -7,13 +7,16 @@ export const shoppingInitialState = {
   reload: false,
 };
 
+const compare = (a, b) =>
+  a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0;
+
 export function shoppingRecuder(state, action) {
   switch (action.type) {
     case TYPES.ADD_PRODUCT: {
       return {
         ...state,
-        initialProducts: [...action.payload.productos],
-        products: [...action.payload.productos],
+        initialProducts: [...action.payload.productos].sort(compare),
+        products: [...action.payload.productos].sort(compare),
         categories: action.payload.categorias,
         loading: false,
         reload: false,
@@ -21,9 +24,11 @@ export function shoppingRecuder(state, action) {
     }
     case TYPES.ADD_TO_CART: {
       let producto;
-      let newItem = state.products.find(
-        (product) => product.uid === action.payload.id
-      );
+
+      let newItem =
+        state.products.find((product) => product.uid === action.payload.id) ||
+        state.cart.find((product) => product.uid === action.payload.id);
+
       let itemInCart = state.cart.find((item) => item.uid === newItem.uid);
 
       if (itemInCart) {
@@ -102,6 +107,9 @@ export function shoppingRecuder(state, action) {
         : {
             ...state,
             reload: false,
+            products: state.products.filter(
+              (product) => product.uid !== action.payload.id
+            ),
             cart: [
               ...state.cart,
               {
@@ -135,6 +143,8 @@ export function shoppingRecuder(state, action) {
       let itemToDelete = state.cart.find(
         (item) => item.uid === action.payload.id
       );
+
+      console.log(itemToDelete);
 
       return itemToDelete.cantidad > 1
         ? {
@@ -171,6 +181,17 @@ export function shoppingRecuder(state, action) {
         : {
             ...state,
             reload: false,
+            products: [
+              ...state.products,
+              {
+                ...itemToDelete,
+                destino: itemToDelete.destino.map((item) =>
+                  item.punto._id === action.payload.punto
+                    ? { ...item, cantidad: item.cantidad + 1 }
+                    : item
+                ),
+              },
+            ].sort(compare),
             cart: state.cart.filter((item) => item.uid !== action.payload.id),
             /* products: state.products.map((items) =>
               items.uid === action.payload.id
@@ -200,9 +221,9 @@ export function shoppingRecuder(state, action) {
       return {
         ...state,
         reload: false,
-        products: state.initialProducts.filter(
-          (element) => element.categoria.nombre === action.payload
-        ),
+        products: state.initialProducts
+          .filter((element) => element.categoria.nombre === action.payload)
+          .sort(compare),
       };
     }
     case TYPES.CLEAR_FILTER_PRODUCT: {

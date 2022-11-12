@@ -3,18 +3,38 @@
   display: flex;
   height: 100%;
 
-  //height: 100vh;
   .cashier-left {
-    background-color: #f2f2f2;
+    background-color: #002c5d;
     height: 100%;
     width: 70%;
 
-    .navbar {
+    .vacio {
+      align-items: center;
+      color: white;
       display: flex;
-      justify-content: space-between;
+      font-size: var(--step-1);
+      font-weight: bold;
+      height: 70vh;
+      justify-content: center;
+
+      p {
+        &:hover {
+          opacity: 50%;
+          transition: 1s;
+        }
+      }
+    }
+
+    .navbar {
+      background-color: #f2f2f2;
+      border: none;
+      display: flex;
       font-weight: bold;
       height: 50px;
-      //background-color: aqua;
+      justify-content: space-between;
+      left: 0;
+      position: sticky;
+      top: 0;
 
       .title {
         padding: 1rem;
@@ -22,19 +42,23 @@
     }
 
     .navbar-categories {
+      background-color: #002c5d;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(80px, 120px));
-      background-color: #002c5d;
+      left: 0;
+      position: sticky;
+      top: 50px;
 
       button {
-        margin: 1rem 1rem;
         border: none;
-        //border: 1px solid white;
         border-radius: 0.5rem;
+        margin: 1rem 1rem;
         padding: 0.5rem;
+        cursor: pointer;
         //width: clamp(80px, 100px, 120px);
       }
     }
+
 
     .card-wrapper {
       display: grid;
@@ -47,11 +71,14 @@
   .cashier-right {
     background-color: #003667;
     height: 100vh;
+    position: sticky;
+    right: 0;
+    top: 0;
     width: 30%;
 
     .list-wrapper {
       height: 70vh;
-      overflow-y: scroll;
+      overflow: hidden;
 
       .vacio {
         align-items: center;
@@ -72,79 +99,100 @@
     }
 
     .list-amount {
-      color: white;
-      background-color: #002c5d;
-      display: flex;
       align-items: center;
+      background-color: #002253;
+      color: white;
+      display: flex;
       justify-content: center;
       height: 30vh;
+      overflow: auto;
 
       button {
         background-color: #f2f2f2;
         border: none;
+        border-radius: 1rem;
         color: #003667;
         font-size: var(--step--1);
-        //padding: 5px 5px;
-        //border-radius: .5rem;
+        padding: 0.5rem;
         transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         width: 50%;
-        //min-width: 34%;
-        //margin: 10px 10px 0;
-        //border: 1px solid black;
-        border-radius: 1rem;
-        padding: 0.5rem;
-
         cursor: pointer;
       }
 
       .list-amount-contenido-left {
+        align-items: flex-end;
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        height: 100%;
         justify-content: center;
         width: 50%;
-        height: 100%;
 
         .grid-left {
-          display: flex;
           align-items: center;
+          display: flex;
+          height: 1.5rem;
           justify-content: end;
           margin: 0.5rem;
           padding: 0;
-          height: 1.5rem;
-          width: 50%;
+          width: 80%;
+
+          button {
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            margin: 1rem 1rem;
+            padding: 0.5rem;
+            //width: clamp(80px, 100px, 120px);
+            cursor: pointer;
+
+            &:hover {
+              opacity: 80%;
+            }
+          }
         }
       }
 
       .list-amount-contenido {
+        align-items: flex-start;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        height: 100%;
         justify-content: center;
         width: 50%;
-        height: 100%;
 
         .grid {
-          display: flex;
           align-items: center;
+          display: flex;
+          height: 1.5rem;
           justify-content: start;
           margin: 0.5rem;
           padding: 0;
-          height: 1.5rem;
-          width: 50%;
+          width: 80%;
+
+          button {
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            margin: 1rem 1rem;
+            padding: 0.5rem;
+            //width: clamp(80px, 100px, 120px);
+            cursor: pointer;
+
+            &:hover {
+              opacity: 80%;
+            }
+          }
         }
 
         input {
           background-color: #003667;
-          //margin: var(--space-2xs);
-          //border: 2px solid white;
           border: none;
           border-radius: 5px;
           color: white;
+          font-family: "Raleway", sans-serif;
+          font-size: var(--step-0);
           text-align: start;
           width: 50%;
-          font-size: var(--step-0);
-          font-family: "Raleway", sans-serif;
         }
 
         // Chrome, Safari, Edge, Opera

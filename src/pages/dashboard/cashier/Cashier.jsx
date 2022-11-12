@@ -149,15 +149,11 @@ const Cashier = () => {
     return <div>Espera papu</div>;
   }
 
-  if (!products.length) {
-    return <div>Nada por aquí... </div>;
-  }
-
   return (
     <div className="cashier">
       <div className="cashier-left">
         <div className="navbar">
-          <div className="title step-3">Point of Sale</div>
+          <div className="title step-3">Punto de venta</div>
           <div className="title step-0">Hola, {nombre} 👋❕</div>
           {/* <select name="punto" id="punto" onChange={handleChange}>
             {punto.map((element) => (
@@ -189,14 +185,21 @@ const Cashier = () => {
           </button>
         </div>
         <div className="card-wrapper">
-          {products.map((item) => (
-            <Card
-              key={item.uid}
-              addCart={addCart}
-              designado={designado}
-              {...item}
-            />
-          ))}
+          {!products.length ? (
+            <div className="vacio">
+              <p>Nada por aquí... 📋</p>
+            </div>
+          ) : (
+            products.map((item) => (
+              <Card
+                key={item.uid}
+                addCart={addCart}
+                designado={designado}
+                cart={cart}
+                {...item}
+              />
+            ))
+          )}
         </div>
       </div>
       <div className="cashier-right">

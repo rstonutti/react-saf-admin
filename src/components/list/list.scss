@@ -1,21 +1,18 @@
 .list-container {
-  //align-items: center;
   align-content: space-around;
+  animation-name: apearCart;
+  animation-duration: 0.7s;
   background-color: #f2f2f2;
   border: 1px solid white;
   border-radius: 1rem;
   display: flex;
   min-width: 250px;
-  //justify-content: space-between;
   margin: 1rem;
   padding: .5rem;
 
-  animation-name: apearCart;
-  animation-duration: 0.7s;
 
   .list-img {
     align-items: center;
-    //background-color: aqua;
     display: flex;
     flex: 6 10%;
 
@@ -30,31 +27,27 @@
   }
 
   .cantidades {
-    justify-content: space-around;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     min-width: 20%;
 
     .list-icon {
-      //background-color: red;
       color: #003667;
       display: flex;
       justify-content: space-around;
 
       .icon {
         &:hover {
-          transition: 0.5s;
           color: #016764;
           opacity: 80%;
+          transition: 0.5s;
           cursor: pointer;
         }
       }
     }
 
     .list-price {
-
-      //background-color: aqua;
-
       text-align: center;
     }
   }

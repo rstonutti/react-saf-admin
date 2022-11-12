@@ -1,6 +1,6 @@
 .card-container {
     margin: 1rem;
-    border: 1px solid black;
+    border: 1px solid #f2f2f2;
     border-radius: 1rem;
     padding: var(--space-2xs);
     background-color: #fff;
@@ -32,6 +32,11 @@
             padding: 5px;
 
             cursor: pointer;
+
+            &:hover {
+                opacity: 90%;
+            }
+
         }
 
         .card-title-left {
@@ -63,8 +68,8 @@
         } */
 
         .card-icon {
-            background-color: #0a0a23;
             color: #fff;
+            background-color: #0a0a23;
             border: none;
             border-radius: .5rem;
             margin: .5rem;
@@ -78,9 +83,9 @@
             }
 
             &:focus {
+                box-shadow: 0 0 0 4px #5a01a7;
                 outline-color: transparent;
                 outline-style: solid;
-                box-shadow: 0 0 0 4px #5a01a7;
                 transition: 0.7s;
             }
         }
