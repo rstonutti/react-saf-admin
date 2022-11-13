@@ -6,6 +6,8 @@ import { PublicRoutes } from "./PublicRoutes";
 import { AuthContext } from "../contexts/authContext";
 import { useContext, useEffect } from "react";
 import { fetchConToken } from "../helpers/fetch";
+import Spinner from "../components/spinner/Spinner";
+import PosRouter from "../pages/dashboard/routes/PosRouter";
 
 export const AppRouter = () => {
   const {
@@ -40,7 +42,7 @@ export const AppRouter = () => {
   }, [dispatch]);
 
   if (checking) {
-    return <div>Chequeando querido</div>;
+    return <Spinner />;
   }
 
   return (
@@ -54,7 +56,14 @@ export const AppRouter = () => {
             </PublicRoutes>
           }
         />
-
+        <Route
+          path="/pos/*"
+          element={
+            <PrivateRoutes isLogged={!!uid}>
+              <PosRouter />
+            </PrivateRoutes>
+          }
+        />
         <Route
           path="/*"
           element={

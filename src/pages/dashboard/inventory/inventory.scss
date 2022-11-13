@@ -1,17 +1,19 @@
 .stock {
   display: flex;
   width: 100%;
+
   .stock-container {
     flex: 6;
 
     .datatable {
-      height: 600px;
+      height: calc(100vh - 100px);
       padding: 0.5rem;
 
       .datatableTitle {
         width: 100%;
         font-size: 24px;
-        color: gray;
+        color: #003667;
+        font-weight: bold;
         margin-bottom: 10px;
         display: flex;
         align-items: center;
@@ -19,10 +21,11 @@
 
         .link {
           text-decoration: none;
-          color: green;
+          background-color: green;
+          color: white;
           font-size: 16px;
           font-weight: 400;
-          border: 1px solid green;
+          //border: 1px solid green;
           padding: 5px;
           border-radius: 5px;
           cursor: pointer;
@@ -50,10 +53,12 @@
           background-color: rgba(0, 128, 0, 0.05);
           color: green;
         }
+
         &.pending {
           background-color: rgba(255, 217, 0, 0.05);
           color: goldenrod;
         }
+
         &.passive {
           background-color: rgba(255, 0, 0, 0.05);
           color: crimson;
@@ -66,19 +71,31 @@
         gap: 15px;
 
         .viewButton {
-          padding: 2px 5px;
+          background-color: #003667;
+          //border: 1px dotted rgba(0, 0, 139, 0.596);
           border-radius: 5px;
-          color: darkblue;
-          border: 1px dotted rgba(0, 0, 139, 0.596);
+          color: white;
+          font-size: var(--step--1);
+          padding: 2px 5px;
           cursor: pointer;
+
+          &:hover {
+            opacity: 80%;
+          }
         }
 
         .deleteButton {
-          padding: 2px 5px;
+          background-color: red;
+          //border: 1px dotted rgba(220, 20, 60, 0.6);
           border-radius: 5px;
-          color: crimson;
-          border: 1px dotted rgba(220, 20, 60, 0.6);
+          color: white;
+          font-size: var(--step--1);
+          padding: 2px 5px;
           cursor: pointer;
+
+          &:hover {
+            opacity: 80%;
+          }
         }
       }
     }

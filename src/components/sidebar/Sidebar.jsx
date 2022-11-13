@@ -22,8 +22,8 @@ const Sidebar = () => {
   const handleLogout = () => {
     localStorage.clear();
     dispatch({
-      type: 'LOGOUT'
-    })
+      type: "LOGOUT",
+    });
   };
 
   return (
@@ -35,7 +35,7 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">Principal</p>
-          <Link to="/">
+          <Link style={{ textDecoration: "none" }} to="/">
             <li>
               <DashboardIcon className="icon" />
               <span>Dashboard</span>
@@ -59,22 +59,24 @@ const Sidebar = () => {
             <span>Productos</span>
           </li>
           <li>
-            <ListAltIcon className="icon" />
-            <span>Ordenes</span>
+            <Link style={{ textDecoration: "none" }} to="/ordenes">
+              <ListAltIcon className="icon" />
+              <span>Ordenes</span>
+            </Link>
           </li>
           {/* <li>
             <QueryStatsIcon className="icon" />
             <span>Estadistícas</span>
           </li> */}
           <p className="title">Inventario</p>
-          <Link to="/stock">
+          <Link style={{ textDecoration: "none" }} to="/stock">
             <li>
               <InventoryIcon className="icon" />
               <span>Inventario</span>
             </li>
           </Link>
           <p className="title">Facturación</p>
-          <Link to="/pos">
+          <Link style={{ textDecoration: "none" }} to="/pos">
             <li>
               <PaymentIcon className="icon" />
               <span>Cajero</span>
@@ -89,7 +91,12 @@ const Sidebar = () => {
             <SettingsIcon className="icon" />
             <span>Configuración</span>
           </li>
-          <Link className="nav-link" to="/" onClick={handleLogout}>
+          <Link
+            className="nav-link"
+            style={{ textDecoration: "none" }}
+            to="/"
+            onClick={handleLogout}
+          >
             <li>
               <LogoutIcon className="icon" />
               <span>Logout</span>

@@ -1,4 +1,4 @@
-import "./inventory.scss";
+import "./order.scss";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
@@ -7,7 +7,7 @@ import { fetchSinToken } from "../../../helpers/fetch";
 import { capitalizeFirstLetter } from "../../../helpers/capitalize-first-letter";
 import Spinner from "../../../components/spinner/Spinner";
 
-const inventoryColumns = [
+const orderColumns = [
   {
     field: "id",
     headerName: "ID",
@@ -15,11 +15,10 @@ const inventoryColumns = [
     width: 50,
   },
   {
-    field: "productos",
-    headerName: "Producto",
-    flex: 3,
+    field: "usuario",
+    headerName: "Vendedores",
+    flex: 2,
     renderCell: (params) => {
-      console.log(params);
       return (
         <div className="cellWithImg">
           <Image
@@ -36,36 +35,32 @@ const inventoryColumns = [
               crop="fill"
             />
           </Image>
-          {capitalizeFirstLetter(params.row.nombre.toLowerCase())}
+          {capitalizeFirstLetter(params.row.usuario.toLowerCase())}
         </div>
       );
     },
   },
   {
-    field: "categoria",
-    headerName: "Categoría",
-    /*     renderCell: (params) => {
-      return (
-        <div className="cellWithImg">
-          {capitalizeFirstLetter(params.row.categoria.toLowerCase())}
-        </div>
-      );
-    }, */
-    flex: 1.5,
-  },
-  {
-    field: "lote",
-    headerName: "LOTE",
+    field: "punto",
+    headerName: "Lugar",
+
     flex: 1,
   },
   {
     align: "center",
     headerAlign: "center",
-    field: "cantidad",
-    headerName: "Cantidad",
+    field: "montoTotal",
+    headerName: "Monto ($)",
     flex: 1,
   },
   {
+    align: "center",
+    headerAlign: "center",
+    field: "createdAt",
+    headerName: "Fecha de emisión",
+    flex: 2,
+  },
+  /*   {
     field: "punto",
     headerName: "Destino",
     flex: 2,
@@ -74,7 +69,7 @@ const inventoryColumns = [
     field: "proveedor",
     headerName: "Proveedor",
     flex: 1.5,
-  },
+  }, */
   /* {
     field: "status",
     headerName: "Status",
@@ -89,25 +84,23 @@ const inventoryColumns = [
   }, */
 ];
 
-const Inventory = () => {
+const Order = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const cargarInventario = async () => {
-    const resp = await fetchSinToken(
-      `api/v1/productos/inventario/?desde=0&limite=50`
-    );
+  const cargarOrdenes = async () => {
+    const resp = await fetchSinToken(`api/v1/ordenes/?desde=0&limite=50`);
 
-    const { total, inventario } = await resp.json();
+    const { total, ordenes } = await resp.json();
 
     if (resp.ok) {
-      setData(inventario);
+      setData(ordenes);
       setLoading(false);
     }
   };
-  console.log(data, "datos");
+  console.log(data);
   useEffect(() => {
-    cargarInventario();
+    cargarOrdenes();
   }, []);
 
   const handleDelete = (id) => {
@@ -144,19 +137,14 @@ const Inventory = () => {
   }
 
   return (
-    <div className="stock">
-      <div className="stock-container">
+    <div className="order">
+      <div className="order-container">
         <div className="datatable">
-          <div className="datatableTitle">
-            Inventario
-            <Link to="/stock/nuevo" className="link">
-              Agregar
-            </Link>
-          </div>
+          <div className="datatableTitle">Ordenes</div>
           <DataGrid
             className="datagrid"
             rows={data}
-            columns={inventoryColumns.concat(actionColumn)}
+            columns={orderColumns.concat(actionColumn)}
             pageSize={7}
             rowsPerPageOptions={[7]}
             checkboxSelection
@@ -167,4 +155,4 @@ const Inventory = () => {
   );
 };
 
-export default Inventory;
+export default Order;

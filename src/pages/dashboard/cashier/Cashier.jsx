@@ -9,9 +9,12 @@ import { AuthContext } from "../../../contexts/authContext";
 import { getAmount } from "../../../helpers/amount";
 import Card from "../../../components/card/Card";
 import List from "../../../components/list/List";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import "./cashier.scss";
 import { capitalizeFirstLetter } from "../../../helpers/capitalize-first-letter";
+import Spinner from "../../../components/spinner/Spinner";
+import { Link } from "react-router-dom";
 
 const Cashier = () => {
   const {
@@ -20,13 +23,8 @@ const Cashier = () => {
 
   const [{ products, cart, categories, orden, loading, reload }, dispatch] =
     useReducer(shoppingRecuder, shoppingInitialState);
-
-  //Tratar de resolverlo con un reducer
-  //const [reload, setReload] = useState(false);
-  /* const orden = {}; */
-
-  const [cambio, setCambio] = useState();
-  console.log(reload, "reload");
+  let efectivoInitial = 0;
+  const [cambio, setCambio] = useState(efectivoInitial);
 
   const cargarProductos = async () => {
     const resp = await fetchSinToken(
@@ -36,8 +34,6 @@ const Cashier = () => {
     const { productos, categorias } = await resp.json();
 
     if (resp.ok) {
-      //setReload(false);
-
       dispatch({
         type: "ADD_PRODUCT",
         payload: { productos, categorias },
@@ -45,7 +41,6 @@ const Cashier = () => {
     }
   };
 
-  //De momento no lo uso
   const handleChange = (e) => {
     setCambio(e.target.value);
   };
@@ -83,7 +78,7 @@ const Cashier = () => {
   };
 
   const clearCart = () => {
-    setCambio(0);
+    setCambio(efectivoInitial);
     dispatch({
       type: TYPES.CLEAR_CART,
     });
@@ -91,51 +86,29 @@ const Cashier = () => {
 
   const submitOrder = async () => {
     if (cart.length != 0) {
-      /* orden.productos = cart.map(({ uid, cantidad, precio }) => {
-        return { producto: uid, cantidad, precio };
-      });
-      //orden.usuario = uid; (Eso lo configuro en el back)
-      orden.montoTotal = getAmount(cart);
-      orden.punto = destino; */
+      const resp = await fetchConToken(
+        "api/v1/ordenes",
+        { cart, orden },
+        "POST"
+      );
 
-      /* dispatch({
-        type: "CREATE_ORDER",
-        payload: { destino, montoTotal: getAmount(cart) },
-      }); */
-
-      console.log(orden, "antes de enviarla");
-
-      const resp = await fetchConToken("api/v1/ordenes", { orden }, "POST");
-      //Tratar de manejarlo con reducer
       if (resp.ok) {
+        console.log("éxito");
         dispatch({
-          type: "SUBMIT_ORDER",
+          type: TYPES.SUBMIT_ORDER,
         });
-        clearCart();
-      }
-
-      /* products.map((element) =>
-        element.destino.map((item) => {
-          if (item.punto == "635ab7536abc9ecc0518bf37") {
-            item.cantidad--;
-          }
-          return item;
-        })
-      ); */
-
-      /* if (resp.ok) {
-        clearCart();
-
         //AGREGAR UNA NOTIFICACIÓN DE ÉXITO
-      } */
+      }
     } else {
+      //AGREGAR UNA NOTIFICACIÓN DE CARRITO VACIO
       console.log("carrito vacio");
     }
   };
+  console.log(reload);
 
   useEffect(() => {
+    console.log("actualiza");
     cargarProductos();
-    console.log("prueba");
   }, [reload]);
 
   useEffect(() => {
@@ -146,22 +119,20 @@ const Cashier = () => {
   }, [cart]);
 
   if (loading) {
-    return <div>Espera papu</div>;
+    return <Spinner />;
   }
 
   return (
     <div className="cashier">
       <div className="cashier-left">
         <div className="navbar">
-          <div className="title step-2">Punto de venta</div>
+          <div className="button-title">
+            <Link style={{ textDecoration: "none" }} to="/">
+              <ArrowBackIosNewIcon />
+            </Link>
+            <div className="title step-2">Punto de venta</div>
+          </div>
           <div className="title step-0">Hola, {nombre} 👋❕</div>
-          {/* <select name="punto" id="punto" onChange={handleChange}>
-            {punto.map((element) => (
-              <option key={element.uid} value={element.uid}>
-                {element.barrio}
-              </option>
-            ))}
-          </select> */}
         </div>
         <div className="navbar-categories">
           {categories.map((item) => (
@@ -217,7 +188,7 @@ const Cashier = () => {
             ))
           ) : (
             <div className="vacio">
-              <p>Nada por aquí... 📋</p>
+              <p>Nada por aquí... 🛒</p>
             </div>
           )}
         </div>

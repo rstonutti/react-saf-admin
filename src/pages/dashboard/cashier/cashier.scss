@@ -36,8 +36,18 @@
       position: sticky;
       top: 0;
 
+      .button-title {
+        align-items: center;
+        justify-content: start;
+        display: flex;
+
+        .title {
+          padding: .5rem;
+        }
+      }
+
       .title {
-        padding: 1rem;
+        padding: .5rem;
       }
     }
 
@@ -54,7 +64,7 @@
       button {
         border: none;
         border-radius: 0.5rem;
-        margin: 1rem 1rem;
+        margin: 1rem .5rem .5rem;
         padding: 0.5rem;
         cursor: pointer;
         //width: clamp(80px, 100px, 120px);
@@ -80,7 +90,7 @@
 
     .list-wrapper {
       height: 70vh;
-      overflow: hidden;
+      overflow: auto;
 
       .vacio {
         align-items: center;
