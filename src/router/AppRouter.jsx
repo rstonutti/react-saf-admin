@@ -57,18 +57,18 @@ export const AppRouter = () => {
           }
         />
         <Route
-          path="/pos/*"
-          element={
-            <PrivateRoutes isLogged={!!uid}>
-              <PosRouter />
-            </PrivateRoutes>
-          }
-        />
-        <Route
           path="/*"
           element={
             <PrivateRoutes isLogged={!!uid}>
               <DashboardRoutes />
+            </PrivateRoutes>
+          }
+        />
+                <Route
+          path="/*"
+          element={
+            <PrivateRoutes isLogged={!!uid}>
+              <PosRouter />
             </PrivateRoutes>
           }
         />

@@ -38,7 +38,7 @@ export const Login = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container-login">
       <div className="left">left</div>
       <div className="right">
         {/* DESDE ACA MIRAR LOS ESTILOS */}

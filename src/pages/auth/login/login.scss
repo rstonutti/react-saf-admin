@@ -1,15 +1,15 @@
-.container {
-    display: flex;
-    margin: 0 10%;
-    height: 100vh;
+.container-login {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: crimson;
+  .left {
+    background-color: red;
+    width: 50%;
+  }
 
-    .left {
-        background-color: red;
-        width: 50%;
-    }
-
-    .right {
-        background-color: blue;
-        width: 50%;
-    }
+  .right {
+    background-color: blue;
+    width: 50%;
+  }
 }

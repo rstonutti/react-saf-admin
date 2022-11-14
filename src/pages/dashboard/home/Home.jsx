@@ -43,7 +43,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      {chart.length && ingresos.length && semana.length && features.length ? (
+      {chart.length && ingresos.length && semana.length ? (
         <div className="homeContainer">
           <div className="widgets">
             <Widget type="usuarios" />
@@ -52,7 +52,11 @@ const Home = () => {
             <Widget type="ingresos" valores={ingresos} />
           </div>
           <div className="charts">
-            <Featured dia={features} mes={ingresos} semana={semana} />
+            <Featured
+              dia={features.length ? features : [{ total: 0 }]}
+              mes={ingresos}
+              semana={semana}
+            />
             <Chart
               title="Ingresos de los ultimos 6 meses"
               chartStats={chart}

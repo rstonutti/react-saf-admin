@@ -58,12 +58,12 @@ const Sidebar = () => {
             <EggIcon className="icon" />
             <span>Productos</span>
           </li>
-          <li>
-            <Link style={{ textDecoration: "none" }} to="/ordenes">
+          <Link style={{ textDecoration: "none" }} to="/ordenes">
+            <li>
               <ListAltIcon className="icon" />
               <span>Ordenes</span>
-            </Link>
-          </li>
+            </li>
+          </Link>
           {/* <li>
             <QueryStatsIcon className="icon" />
             <span>Estadistícas</span>

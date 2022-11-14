@@ -18,7 +18,7 @@ const Featured = ({ dia: [{ total }], mes: [anterior], semana: [actual] }) => {
         <div className="featuredChart">
           <CircularProgressbar
             value={porcentaje}
-            text={`${porcentaje}`}
+            text={`${porcentaje.toFixed()}`}
             strokeWidth={5}
           />
         </div>
