@@ -19,7 +19,6 @@ const inventoryColumns = [
     headerName: "Producto",
     flex: 3,
     renderCell: (params) => {
-      console.log(params);
       return (
         <div className="cellWithImg">
           <Image
@@ -105,7 +104,7 @@ const Inventory = () => {
       setLoading(false);
     }
   };
-  console.log(data, "datos");
+
   useEffect(() => {
     cargarInventario();
   }, []);

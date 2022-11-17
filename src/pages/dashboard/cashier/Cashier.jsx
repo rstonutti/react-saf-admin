@@ -104,10 +104,8 @@ const Cashier = () => {
       console.log("carrito vacio");
     }
   };
-  console.log(reload);
 
   useEffect(() => {
-    console.log("actualiza");
     cargarProductos();
   }, [reload]);
 

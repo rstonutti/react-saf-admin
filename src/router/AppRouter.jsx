@@ -64,8 +64,8 @@ export const AppRouter = () => {
             </PrivateRoutes>
           }
         />
-                <Route
-          path="/*"
+        <Route
+          path="/pos"
           element={
             <PrivateRoutes isLogged={!!uid}>
               <PosRouter />

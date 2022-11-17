@@ -98,7 +98,7 @@ const Order = () => {
       setLoading(false);
     }
   };
-  console.log(data);
+
   useEffect(() => {
     cargarOrdenes();
   }, []);

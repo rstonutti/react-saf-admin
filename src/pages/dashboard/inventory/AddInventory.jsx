@@ -91,8 +91,6 @@ const AddInventory = () => {
     }
   };
 
-  console.log(formValues);
-
   const buscador = async () => {
     setBuscando(true);
     const resp = await fetchSinToken(

@@ -17,8 +17,6 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formValues);
-
     const resp = await fetchSinToken("api/v1/auth/login", formValues, "POST");
     const body = await resp.json();
 

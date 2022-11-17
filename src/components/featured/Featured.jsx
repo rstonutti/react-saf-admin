@@ -6,7 +6,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 
 const Featured = ({ dia: [{ total }], mes: [anterior], semana: [actual] }) => {
-  console.log(total, anterior, actual);
   let porcentaje = (total * 100) / actual.total;
   return (
     <div className="featured">
