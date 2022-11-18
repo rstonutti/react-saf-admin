@@ -11,6 +11,7 @@ import Spinner from "../../../components/spinner/Spinner";
 const Home = () => {
   const [chart, setChart] = useState([]);
   const [ingresos, setIngresos] = useState([]);
+  const [productosMes, setProductosMes] = useState([]);
   const [semana, setSemana] = useState([]);
   const [features, setFeatures] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,9 +19,9 @@ const Home = () => {
   const cargarStats = async () => {
     const resp = await fetchSinToken(`api/v1/ordenes/stats`);
 
-    const { seisMeses, anteriorActualMes, esteDia, estaSemana } =
+    const { seisMeses, anteriorActualMes, productoMes, esteDia, estaSemana } =
       await resp.json();
-
+    console.log(productoMes);
     if (resp.ok) {
       setChart(seisMeses);
       setIngresos(
@@ -28,6 +29,7 @@ const Home = () => {
           a._id > b._id ? 1 : b._id > a._id ? -1 : 0
         )
       );
+      setProductosMes(productoMes);
       setSemana(estaSemana);
       setFeatures(esteDia);
       setLoading(false);
@@ -43,11 +45,14 @@ const Home = () => {
 
   return (
     <div className="home">
-      {chart.length && ingresos.length && semana.length ? (
+      {chart.length &&
+      ingresos.length &&
+      semana.length &&
+      productosMes.length ? (
         <div className="homeContainer">
           <div className="widgets">
             <Widget type="usuarios" />
-            <Widget type="productos" valores={ingresos} />
+            <Widget type="productos" valores={productosMes} />
             <Widget type="ordenes" valores={ingresos} />
             <Widget type="ingresos" valores={ingresos} />
           </div>

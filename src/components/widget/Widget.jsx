@@ -44,6 +44,7 @@ const Widget = ({ type, valores }) => {
           />
         ),
       };
+      console.log(valores);
       amount = valores[1].productos;
       diff =
         ((valores[1].productos - valores[0].productos) / valores[0].productos) *
