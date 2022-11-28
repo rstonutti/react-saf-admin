@@ -68,7 +68,7 @@ const AddInventory = () => {
   const [encontrado, setEncontrado] = useState();
   const [buscando, setBuscando] = useState(false);
 
-  console.log(encontrado, "encontrado");
+  //console.log(encontrado, "encontrado");
 
   const [formValues, handleInputChange] = useForm({
     producto: "",
@@ -76,6 +76,16 @@ const AddInventory = () => {
     lote: "",
     cantidad: 0,
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(encontrado.destino[0].punto);
+    console.log(destino);
+
+    /* let newItem =
+      encontrado.destino.find((puntos) => puntos.punto === destino.uid) ||
+      state.cart.find((product) => product.uid === action.payload.id); */
+  };
 
   const { producto, proveedor, lote, cantidad, destino } = formValues;
 
@@ -167,7 +177,7 @@ const AddInventory = () => {
             )}
           </div>
           <div className="right">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="formInput">
                 <label htmlFor="file">
                   Completa el formulario
@@ -256,7 +266,7 @@ const AddInventory = () => {
                 />
               </div>
 
-              <button>Guardar</button>
+              <button type="submit">Guardar</button>
             </form>
           </div>
         </div>
