@@ -1,19 +1,11 @@
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/authContext";
+import { useSelector } from "react-redux";
 import { Image, Transformation } from "cloudinary-react";
 import SearchOutlineIcon from "@mui/icons-material/SearchOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-
 import "./navbar.scss";
-import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
-  /* const {
-    state: { uid, img, nombre },
-  } = useContext(AuthContext); */
-
-  const dispatch = useDispatch();
   const { uid, img, nombre } = useSelector((state) => state.auth);
 
   return (

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
 import { DataGrid } from "@mui/x-data-grid";
-import { fetchSinToken } from "../../../helpers/fetch";
 import { capitalizeFirstLetter } from "../../../helpers/capitalize-first-letter";
 import Spinner from "../../../components/spinner/Spinner";
 import { useDispatch, useSelector } from "react-redux";
