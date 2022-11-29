@@ -1,5 +1,5 @@
 import "./inventory.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
 import { DataGrid } from "@mui/x-data-grid";
@@ -144,7 +144,7 @@ const Inventory = () => {
     },
   ];
 
-  if (loading === null) {
+  if (loading) {
     return <Spinner />;
   }
 
