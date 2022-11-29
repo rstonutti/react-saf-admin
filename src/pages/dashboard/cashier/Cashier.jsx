@@ -1,32 +1,42 @@
-import { useContext, useEffect, useReducer, useState } from "react";
-import { fetchSinToken, fetchConToken } from "../../../helpers/fetch";
-import {
-  shoppingInitialState,
-  shoppingRecuder,
-} from "../../../reducers/shoppingReducer";
-import { TYPES } from "../../../actions/shoppingActions";
-import { AuthContext } from "../../../contexts/authContext";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getAmount } from "../../../helpers/amount";
+import { capitalizeFirstLetter } from "../../../helpers/capitalize-first-letter";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Card from "../../../components/card/Card";
 import List from "../../../components/list/List";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-
-import "./cashier.scss";
-import { capitalizeFirstLetter } from "../../../helpers/capitalize-first-letter";
 import Spinner from "../../../components/spinner/Spinner";
-import { Link } from "react-router-dom";
+import {
+  cargarProductos,
+  clearCart,
+  cleanUp,
+  createOrden,
+  filterProducts,
+  getRemaining,
+  submitOrder,
+} from "../../../redux/actions/shopping";
+import "./cashier.scss";
 
 const Cashier = () => {
-  const {
+  /*  const {
     state: { uid, designado, nombre },
-  } = useContext(AuthContext);
+  } = useContext(AuthContext); */
 
-  const [{ products, cart, categories, orden, loading, reload }, dispatch] =
-    useReducer(shoppingRecuder, shoppingInitialState);
-  let efectivoInitial = 0;
-  const [cambio, setCambio] = useState(efectivoInitial);
+  const dispatch = useDispatch();
+  const { designado, nombre } = useSelector((state) => state.auth);
 
-  const cargarProductos = async () => {
+  const { products, cart, categories, orden, loading, reload, remaining } =
+    useSelector((state) => state.shopping);
+
+  /* const [{ products, cart, categories, orden, loading, reload }, dispatch] =
+    useReducer(shoppingRecuder, shoppingInitialState); */
+
+  //PONERLO EN EL REDUCER
+  /* let cambioInicial = 0;
+  const [cambio, setCambio] = useState(cambioInicial); */
+
+  /* const cargarProductos = async () => {
     const resp = await fetchSinToken(
       `api/v1/productos?desde=0&limite=20&punto=${designado}`
     );
@@ -39,20 +49,22 @@ const Cashier = () => {
         payload: { productos, categorias },
       });
     }
-  };
+  }; */
 
   const handleChange = (e) => {
-    setCambio(e.target.value);
+    //setCambio(e.target.value);
+    //dispatch(remaining(e.target.value));
+    dispatch(getRemaining(e.target.value));
   };
 
-  const addCart = (id) => {
+  /* const addCart = (id) => {
     dispatch({
       type: TYPES.ADD_TO_CART,
       payload: { id, punto: designado },
     });
-  };
+  }; */
 
-  const filterProducts = (categoria) => {
+  /*  const filterProducts = (categoria) => {
     categoria === "clear"
       ? dispatch({
           type: TYPES.CLEAR_FILTER_PRODUCT,
@@ -61,9 +73,9 @@ const Cashier = () => {
           type: TYPES.FILTER_PRODUCT,
           payload: categoria,
         });
-  };
+  }; */
 
-  const delFromCart = (id, all = false) => {
+  /* const delFromCart = (id, all = false) => {
     if (all) {
       dispatch({
         type: TYPES.REMOVE_ALL_FROM_CART,
@@ -75,16 +87,16 @@ const Cashier = () => {
         payload: { id, punto: designado },
       });
     }
-  };
+  }; */
 
-  const clearCart = () => {
+  /* const clearCart = () => {
     setCambio(efectivoInitial);
     dispatch({
       type: TYPES.CLEAR_CART,
     });
-  };
+  }; */
 
-  const submitOrder = async () => {
+  /*   const submitOrder = async () => {
     if (cart.length != 0) {
       const resp = await fetchConToken(
         "api/v1/ordenes",
@@ -103,17 +115,18 @@ const Cashier = () => {
       //AGREGAR UNA NOTIFICACIÓN DE CARRITO VACIO
       console.log("carrito vacio");
     }
-  };
+  }; */
 
   useEffect(() => {
-    cargarProductos();
+    dispatch(cargarProductos(designado));
   }, [reload]);
 
   useEffect(() => {
-    dispatch({
+    /* dispatch({
       type: "CREATE_ORDER",
       payload: { designado, montoTotal: getAmount(cart) },
-    });
+    }); */
+    dispatch(createOrden(designado, cart));
   }, [cart]);
 
   if (loading) {
@@ -125,7 +138,13 @@ const Cashier = () => {
       <div className="cashier-left">
         <div className="navbar">
           <div className="button-title">
-            <Link style={{ textDecoration: "none" }} to="/">
+            <Link
+              style={{ textDecoration: "none" }}
+              to="/"
+              onClick={() => {
+                dispatch(cleanUp());
+              }}
+            >
               <ArrowBackIosNewIcon />
             </Link>
             <div className="title step-2">Punto de venta</div>
@@ -138,7 +157,7 @@ const Cashier = () => {
               className="step--1"
               key={item}
               onClick={() => {
-                filterProducts(item);
+                dispatch(filterProducts(item));
               }}
             >
               {capitalizeFirstLetter(item.toLowerCase())}
@@ -147,7 +166,7 @@ const Cashier = () => {
           <button
             className="step--1"
             onClick={() => {
-              filterProducts("clear");
+              dispatch(filterProducts("clear"));
             }}
           >
             Limpiar
@@ -162,7 +181,7 @@ const Cashier = () => {
             products.map((item) => (
               <Card
                 key={item.uid}
-                addCart={addCart}
+                //addCart={addCart}
                 designado={designado}
                 cart={cart}
                 {...item}
@@ -177,8 +196,8 @@ const Cashier = () => {
             cart.map((item) => (
               <List
                 key={item.uid}
-                addCart={addCart}
-                delFromCart={delFromCart}
+                //addCart={addCart}
+                //delFromCart={delFromCart}
                 destino={item.destino}
                 designado={designado}
                 {...item}
@@ -198,7 +217,7 @@ const Cashier = () => {
             <div className="grid-left">
               <button
                 onClick={() => {
-                  submitOrder();
+                  dispatch(submitOrder(cart, orden));
                 }}
               >
                 Enviar
@@ -212,20 +231,20 @@ const Cashier = () => {
                 type="number"
                 name="efectivo"
                 id="efectivo"
-                value={cambio}
+                value={remaining}
                 onChange={handleChange}
               />
             </div>
             <div className="grid">
               $
-              {cambio > getAmount(cart) && getAmount(cart) != 0
-                ? cambio - getAmount(cart)
+              {remaining > getAmount(cart) && getAmount(cart) != 0
+                ? remaining - getAmount(cart)
                 : 0}
             </div>
             <div className="grid">
               <button
                 onClick={() => {
-                  clearCart();
+                  dispatch(clearCart());
                 }}
               >
                 Limpiar

@@ -13,18 +13,20 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 import StyleIcon from "@mui/icons-material/Style";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/authContext";
+import { useDispatch } from "react-redux";
+import { startLogout } from "../../redux/actions/auth";
 
 const Sidebar = () => {
-  const { dispatch } = useContext(AuthContext);
+  //const { dispatch } = useContext(AuthContext);
 
-  const handleLogout = () => {
+  const dispatch = useDispatch();
+
+  /* const handleLogout = () => {
     localStorage.clear();
     dispatch({
       type: "LOGOUT",
     });
-  };
+  }; */
 
   return (
     <div className="sidebar">
@@ -95,7 +97,9 @@ const Sidebar = () => {
             className="nav-link"
             style={{ textDecoration: "none" }}
             to="/"
-            onClick={handleLogout}
+            onClick={() => {
+              dispatch(startLogout());
+            }}
           >
             <li>
               <LogoutIcon className="icon" />

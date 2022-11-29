@@ -1,9 +1,12 @@
 import { Image, Transformation } from "cloudinary-react";
+import { useDispatch } from "react-redux";
 import { capitalizeFirstLetter } from "../../helpers/capitalize-first-letter";
+import { addCart } from "../../redux/actions/shopping";
 
 import "./card.scss";
 
-const Card = ({ img, nombre, precio, uid, designado, destino, addCart }) => {
+const Card = ({ img, nombre, precio, uid, designado, destino }) => {
+  const dispatch = useDispatch();
   let cantidad;
   if (destino) {
     cantidad = destino.find((lugares) => lugares.punto._id === designado);
@@ -35,7 +38,7 @@ const Card = ({ img, nombre, precio, uid, designado, destino, addCart }) => {
           <div className="card-price step--1">Precio: {`$${precio}`}</div>
         </div>
 
-        <button className="step--1" onClick={() => addCart(uid)}>
+        <button className="step--1" onClick={() => dispatch(addCart(uid, designado))}>
           Agregar
         </button>
       </div>

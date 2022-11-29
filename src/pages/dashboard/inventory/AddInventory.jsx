@@ -2,7 +2,7 @@ import Navbar from "../../../components/navbar/Navbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import "./addInventory.scss";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchSinToken } from "../../../helpers/fetch";
 import { useForm } from "../../../hooks/useForm";
 import { Image, Transformation } from "cloudinary-react";
@@ -89,7 +89,7 @@ const AddInventory = () => {
 
   const { producto, proveedor, lote, cantidad, destino } = formValues;
 
-  const cargarInformacion = async () => {
+  /*   const cargarInformacion = async () => {
     const resp = await fetchSinToken(`api/v1/productos?desde=0&limite=100`);
 
     const { productos, categorias, destinos, lotes, productores, disponibles } =
@@ -99,7 +99,19 @@ const AddInventory = () => {
       setSelects({ ...selects, destinos, lotes, productores, disponibles });
       setLoading(false);
     }
-  };
+  }; */
+
+  const cargarProveedores = useCallback(async () => {
+    const resp = await fetchSinToken(
+      `api/v1/usuarios/?desde=0&hasta=5&rol=productor`
+    );
+    const { total, usuarios } = await resp.json();
+
+    if (resp.ok) {
+      setSelects({ ...selects, usuarios });
+      setLoading(false);
+    }
+  }, []);
 
   const buscador = async () => {
     setBuscando(true);
@@ -117,7 +129,7 @@ const AddInventory = () => {
   };
 
   useEffect(() => {
-    cargarInformacion();
+    cargarProveedores();
   }, []);
 
   useEffect(() => {
@@ -184,15 +196,31 @@ const AddInventory = () => {
                   <DriveFileRenameOutlineIcon className="icon" />
                 </label>
               </div>
-
               <div className="formInput">
                 <label>
-                  Productos <span>*</span>
+                  <b>Proveedor</b> <span>*</span>
                 </label>
+                <select
+                  name="proveedor"
+                  className="styled-select semi-square"
+                  onChange={handleInputChange}
+                >
+                  <option>Seleccione un proveedor...</option>
+                  {selects.usuarios.map(({ uid, nombre }) => (
+                    <option value={uid} key={uid}>
+                      {nombre}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* <div className="formInput">
+                <label>Productos</label>
                 <select
                   name="producto"
                   className="styled-select semi-square"
                   onChange={handleInputChange}
+                  disabled
                 >
                   <option>Seleccione un producto...</option>
                   {selects.disponibles.map((productos) => (
@@ -204,31 +232,12 @@ const AddInventory = () => {
               </div>
 
               <div className="formInput">
-                <label>
-                  Proveedor <span>*</span>
-                </label>
-                <select
-                  name="proveedor"
-                  className="styled-select semi-square"
-                  onChange={handleInputChange}
-                >
-                  <option>Seleccione un proveedor...</option>
-                  {selects.productores.map(({ uid, nombre }) => (
-                    <option value={uid} key={uid}>
-                      {nombre}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="formInput">
-                <label>
-                  LOTE <span>*</span>
-                </label>
+                <label>LOTE</label>
                 <select
                   name="lote"
                   className="styled-select semi-square"
                   onChange={handleInputChange}
+                  disabled
                 >
                   <option>Seleccione un LOTE...</option>
                   {selects.lotes.map((lote) => (
@@ -245,6 +254,7 @@ const AddInventory = () => {
                   name="destino"
                   className="styled-select semi-square"
                   onChange={handleInputChange}
+                  disabled
                 >
                   <option>Seleccione un destino...</option>
                   {selects.destinos.map(({ uid, nombre }) => (
@@ -253,7 +263,7 @@ const AddInventory = () => {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
 
               <div className="formInput">
                 <label>Cantidad</label>
@@ -263,6 +273,7 @@ const AddInventory = () => {
                   value={cantidad}
                   onChange={handleInputChange}
                   placeholder="Ingrese una cantidad..."
+                  disabled
                 />
               </div>
 

@@ -1,11 +1,10 @@
-import { useContext } from "react";
-import { AuthContext } from "../../../contexts/authContext";
-import { fetchSinToken } from "../../../helpers/fetch";
+import { useDispatch } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
+import { startLogin } from "../../../redux/actions/auth";
 import "./login.scss";
 
 export const Login = () => {
-  const { dispatch } = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const [formValues, handleInputChange] = useForm({
     correo: "",
@@ -17,22 +16,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resp = await fetchSinToken("api/v1/auth/login", formValues, "POST");
-    const body = await resp.json();
-
-    if (resp.ok) {
-      localStorage.setItem("token", body.token);
-      localStorage.setItem("token-init-date", new Date().getTime());
-
-      dispatch({
-        type: "LOGIN",
-        payload: body.usuario,
-      });
-
-      console.log("correcto");
-    } else {
-      console.log(body.msg);
-    }
+    dispatch(startLogin(correo, password));
   };
 
   return (

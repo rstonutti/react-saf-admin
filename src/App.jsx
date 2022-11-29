@@ -1,20 +1,12 @@
-import { useReducer } from "react";
-import { authReducer } from "./reducers/authReducer";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 import { AppRouter } from "./router/AppRouter";
-import { AuthContext } from "./contexts/authContext";
-
-const init = () => ({
-  checking: true,
-  /* return JSON.parse(localStorage.getItem('token')) || { logged: false }; */
-});
 
 function App() {
-  const [state, dispatch] = useReducer(authReducer, {}, init);
-
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <Provider store={store}>
       <AppRouter />
-    </AuthContext.Provider>
+    </Provider>
   );
 }
 

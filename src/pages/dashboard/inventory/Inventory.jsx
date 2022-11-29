@@ -6,6 +6,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { fetchSinToken } from "../../../helpers/fetch";
 import { capitalizeFirstLetter } from "../../../helpers/capitalize-first-letter";
 import Spinner from "../../../components/spinner/Spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { cargarInventario } from "../../../redux/actions/stock";
 
 const inventoryColumns = [
   {
@@ -89,10 +91,14 @@ const inventoryColumns = [
 ];
 
 const Inventory = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  const cargarInventario = async () => {
+  const { loading, stock } = useSelector((state) => state.stock);
+
+  /* const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true); */
+
+  /*   const cargarInventario = async () => {
     const resp = await fetchSinToken(
       `api/v1/productos/inventario/?desde=0&limite=50`
     );
@@ -103,14 +109,15 @@ const Inventory = () => {
       setData(inventario);
       setLoading(false);
     }
-  };
+  }; */
 
   useEffect(() => {
-    cargarInventario();
+    dispatch(cargarInventario());
   }, []);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    console.log(id);
+    //setData(data.filter((item) => item.id !== id));
   };
 
   const actionColumn = [
@@ -123,7 +130,7 @@ const Inventory = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link to={`/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">Ver</div>
             </Link>
             <div
@@ -138,7 +145,7 @@ const Inventory = () => {
     },
   ];
 
-  if (loading) {
+  if (loading === null) {
     return <Spinner />;
   }
 
@@ -154,7 +161,7 @@ const Inventory = () => {
           </div>
           <DataGrid
             className="datagrid"
-            rows={data}
+            rows={stock}
             columns={inventoryColumns.concat(actionColumn)}
             pageSize={7}
             rowsPerPageOptions={[7]}

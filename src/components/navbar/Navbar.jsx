@@ -6,11 +6,15 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 
 import "./navbar.scss";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
-  const {
+  /* const {
     state: { uid, img, nombre },
-  } = useContext(AuthContext);
+  } = useContext(AuthContext); */
+
+  const dispatch = useDispatch();
+  const { uid, img, nombre } = useSelector((state) => state.auth);
 
   return (
     <div className="navbar">

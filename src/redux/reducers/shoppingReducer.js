@@ -1,16 +1,17 @@
-import { TYPES } from "../actions/shoppingActions";
+import { TYPES } from "../types/types";
 
 export const shoppingInitialState = {
   products: [],
   cart: [],
   loading: true,
   reload: false,
+  remaining: 0,
 };
 
 const compare = (a, b) =>
   a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0;
 
-export function shoppingRecuder(state, action) {
+export const shoppingReducer = (state = shoppingInitialState, action) => {
   switch (action.type) {
     case TYPES.ADD_PRODUCT: {
       return {
@@ -133,6 +134,7 @@ export function shoppingRecuder(state, action) {
         products: state.initialProducts,
         reload: false,
         cart: [],
+        remaining: 0,
       };
     }
     case TYPES.FILTER_PRODUCT: {
@@ -190,7 +192,18 @@ export function shoppingRecuder(state, action) {
         reload: true,
       };
     }
+    case TYPES.REMAINING: {
+      return {
+        ...state,
+        remaining: action.payload,
+      };
+    }
+    case TYPES.CLEAN_UP: {
+      return {
+        ...shoppingInitialState,
+      };
+    }
     default:
       return state;
   }
-}
+};

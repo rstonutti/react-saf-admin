@@ -7,18 +7,11 @@ import RemoveIcon from "@mui/icons-material/Remove";
 
 import "./list.scss";
 import { capitalizeFirstLetter } from "../../helpers/capitalize-first-letter";
+import { useDispatch } from "react-redux";
+import { addCart, delFromCart } from "../../redux/actions/shopping";
 
-const List = ({
-  img,
-  nombre,
-  precio,
-  cantidad,
-  destino,
-  designado,
-  uid,
-  addCart,
-  delFromCart,
-}) => {
+const List = ({ img, nombre, precio, cantidad, destino, designado, uid }) => {
+  const dispatch = useDispatch();
   let disponible = destino.find((lugares) => lugares.punto._id === designado);
 
   return (
@@ -45,10 +38,13 @@ const List = ({
         <div className="list-icon">
           <IndeterminateCheckBoxIcon
             className="icon"
-            onClick={() => delFromCart(uid)}
+            onClick={() => dispatch(delFromCart(uid, designado))}
           />
           {cantidad}
-          <AddBoxIcon className="icon" onClick={() => addCart(uid)} />
+          <AddBoxIcon
+            className="icon"
+            onClick={() => dispatch(addCart(uid, designado))}
+          />
           {/* <DeleteIcon /> */}
         </div>
         <div className="list-price">{`$${precio * cantidad}`}</div>

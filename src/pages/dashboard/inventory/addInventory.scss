@@ -5,6 +5,19 @@
     .stock-container {
         flex: 6;
 
+
+        .stock-wrapper {
+            display: flex;
+
+            .stock-grid {
+                flex: 1;
+                height: 100%;
+                background-color: red;
+
+            }
+        }
+
+
         .top,
         .bottom {
             -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
@@ -44,6 +57,8 @@
                         width: 40%;
 
                         label {
+                            padding-bottom: 1rem;
+
                             span {
                                 color: red;
                                 font-weight: bold;
@@ -55,9 +70,9 @@
                             //background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
                             background-color: #e8e8e8;
                             border: none;
-                            height: 29px;
+                            height: 1.5rem;
                             overflow: hidden;
-                            width: 240px;
+                            width: 80%;
 
                             &:hover {
                                 background-color: #d0d0d0;
@@ -81,7 +96,7 @@
                         }
 
                         input {
-                            width: 100%;
+                            width: 80%;
                             padding: .5rem;
                             border: none;
                             border-bottom: 1px solid gray;

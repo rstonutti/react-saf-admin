@@ -21,7 +21,6 @@ const Home = () => {
 
     const { seisMeses, anteriorActualMes, productoMes, esteDia, estaSemana } =
       await resp.json();
-    console.log(productoMes);
     if (resp.ok) {
       setChart(seisMeses);
       setIngresos(
