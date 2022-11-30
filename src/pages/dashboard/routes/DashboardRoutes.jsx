@@ -21,7 +21,7 @@ export const DashboardRoutes = () => {
           <Route path="/stock" element={<Inventory />} />
           <Route path="/stock/nuevo" element={<AddInventory />} />
 
-          {/* <Route path="/*" element={<Navigate to="/" />} /> */}
+          <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </div>

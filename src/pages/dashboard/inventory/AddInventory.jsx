@@ -1,13 +1,17 @@
-import Navbar from "../../../components/navbar/Navbar";
-import Sidebar from "../../../components/sidebar/Sidebar";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
-import "./addInventory.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { Image, Transformation } from "cloudinary-react";
 import { fetchSinToken } from "../../../helpers/fetch";
 import { useForm } from "../../../hooks/useForm";
-import { Image, Transformation } from "cloudinary-react";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import Spinner from "../../../components/spinner/Spinner";
 import Searching from "../../../components/searching/Searching";
+import "./addInventory.scss";
+import {
+  cargarProductos,
+  cargarProveedores,
+  productoSeleccionado,
+} from "../../../redux/actions/stock";
 
 const inventoryInputs = [
   {
@@ -63,8 +67,13 @@ const inventoryInputs = [
 ];
 
 const AddInventory = () => {
-  const [selects, setSelects] = useState({});
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { loading, disabled, disabledLote, selects } = useSelector(
+    (state) => state.stock
+  );
+
+  //const [selects, setSelects] = useState({});
+  //const [loading, setLoading] = useState(true);
   const [encontrado, setEncontrado] = useState();
   const [buscando, setBuscando] = useState(false);
 
@@ -101,7 +110,7 @@ const AddInventory = () => {
     }
   }; */
 
-  const cargarProveedores = useCallback(async () => {
+  /*   const cargarProveedores = async () => {
     const resp = await fetchSinToken(
       `api/v1/usuarios/?desde=0&hasta=5&rol=productor`
     );
@@ -111,7 +120,7 @@ const AddInventory = () => {
       setSelects({ ...selects, usuarios });
       setLoading(false);
     }
-  }, []);
+  }; */
 
   const buscador = async () => {
     setBuscando(true);
@@ -129,7 +138,7 @@ const AddInventory = () => {
   };
 
   useEffect(() => {
-    cargarProveedores();
+    dispatch(cargarProveedores());
   }, []);
 
   useEffect(() => {
@@ -203,10 +212,13 @@ const AddInventory = () => {
                 <select
                   name="proveedor"
                   className="styled-select semi-square"
-                  onChange={handleInputChange}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    dispatch(cargarProductos(e.target.value));
+                  }}
                 >
                   <option>Seleccione un proveedor...</option>
-                  {selects.usuarios.map(({ uid, nombre }) => (
+                  {selects.supplier.map(({ uid, nombre }) => (
                     <option value={uid} key={uid}>
                       {nombre}
                     </option>
@@ -214,17 +226,20 @@ const AddInventory = () => {
                 </select>
               </div>
 
-              {/* <div className="formInput">
+              <div className="formInput">
                 <label>Productos</label>
                 <select
                   name="producto"
                   className="styled-select semi-square"
-                  onChange={handleInputChange}
-                  disabled
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    dispatch(productoSeleccionado(e.target.value));
+                  }}
+                  disabled={disabled}
                 >
                   <option>Seleccione un producto...</option>
-                  {selects.disponibles.map((productos) => (
-                    <option value={productos.nombre} key={productos.nombre}>
+                  {selects.products?.map((productos) => (
+                    <option value={productos.uid} key={productos.nombre}>
                       {productos.nombre}
                     </option>
                   ))}
@@ -237,10 +252,10 @@ const AddInventory = () => {
                   name="lote"
                   className="styled-select semi-square"
                   onChange={handleInputChange}
-                  disabled
+                  disabled={disabledLote}
                 >
                   <option>Seleccione un LOTE...</option>
-                  {selects.lotes.map((lote) => (
+                  {selects.lotes?.map((lote) => (
                     <option value={lote} key={lote}>
                       {lote}
                     </option>
@@ -254,16 +269,16 @@ const AddInventory = () => {
                   name="destino"
                   className="styled-select semi-square"
                   onChange={handleInputChange}
-                  disabled
+                  disabled={disabled}
                 >
                   <option>Seleccione un destino...</option>
-                  {selects.destinos.map(({ uid, nombre }) => (
+                  {selects.points?.map(({ uid, nombre }) => (
                     <option value={uid} key={uid}>
                       {nombre}
                     </option>
                   ))}
                 </select>
-              </div> */}
+              </div>
 
               <div className="formInput">
                 <label>Cantidad</label>
@@ -273,7 +288,7 @@ const AddInventory = () => {
                   value={cantidad}
                   onChange={handleInputChange}
                   placeholder="Ingrese una cantidad..."
-                  disabled
+                  disabled={disabled}
                 />
               </div>
 

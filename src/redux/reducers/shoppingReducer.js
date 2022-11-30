@@ -198,11 +198,10 @@ export const shoppingReducer = (state = shoppingInitialState, action) => {
         remaining: action.payload,
       };
     }
-    case TYPES.CLEAN_UP: {
+    case TYPES.CLEAN_UP:
       return {
         ...shoppingInitialState,
       };
-    }
     default:
       return state;
   }
