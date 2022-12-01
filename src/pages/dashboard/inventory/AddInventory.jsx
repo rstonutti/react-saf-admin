@@ -8,6 +8,8 @@ import Spinner from "../../../components/spinner/Spinner";
 import Searching from "../../../components/searching/Searching";
 import "./addInventory.scss";
 import {
+  asignarStock,
+  buscador,
   cargarProductos,
   cargarProveedores,
   productoSeleccionado,
@@ -68,9 +70,8 @@ const inventoryInputs = [
 
 const AddInventory = () => {
   const dispatch = useDispatch();
-  const { loading, disabled, disabledLote, selects } = useSelector(
-    (state) => state.stock
-  );
+  const { loading, disabled, disabledLote, selects, searching, found, stock } =
+    useSelector((state) => state.stock);
 
   //const [selects, setSelects] = useState({});
   //const [loading, setLoading] = useState(true);
@@ -79,24 +80,24 @@ const AddInventory = () => {
 
   //console.log(encontrado, "encontrado");
 
-  const [formValues, handleInputChange] = useForm({
+  const [formValues, handleInputChange, reset] = useForm({
     producto: "",
     proveedor: "",
     lote: "",
+    punto: "",
     cantidad: 0,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(encontrado.destino[0].punto);
-    console.log(destino);
-
+    dispatch(asignarStock(punto, parseInt(cantidad)));
+    console.log(stock);
     /* let newItem =
       encontrado.destino.find((puntos) => puntos.punto === destino.uid) ||
       state.cart.find((product) => product.uid === action.payload.id); */
   };
 
-  const { producto, proveedor, lote, cantidad, destino } = formValues;
+  const { producto, proveedor, lote, cantidad, punto } = formValues;
 
   /*   const cargarInformacion = async () => {
     const resp = await fetchSinToken(`api/v1/productos?desde=0&limite=100`);
@@ -122,7 +123,7 @@ const AddInventory = () => {
     }
   }; */
 
-  const buscador = async () => {
+  /*   const buscador = async (producto, proveedor, lote) => {
     setBuscando(true);
     const resp = await fetchSinToken(
       `api/v1/buscar/productos/${producto}/?proveedor=${proveedor}&lote=${lote}`
@@ -135,16 +136,18 @@ const AddInventory = () => {
     }
 
     setBuscando(false);
-  };
+  }; */
 
   useEffect(() => {
     dispatch(cargarProveedores());
   }, []);
 
   useEffect(() => {
-    producto && proveedor && lote && buscador();
+    producto &&
+      proveedor &&
+      lote &&
+      dispatch(buscador(producto, proveedor, lote));
   }, [producto, proveedor, lote]);
-
   if (loading) {
     return <Spinner />;
   }
@@ -157,14 +160,14 @@ const AddInventory = () => {
         </div>
         <div className="bottom">
           <div className="left">
-            {buscando ? (
+            {searching ? (
               <Searching />
-            ) : encontrado ? (
+            ) : found ? (
               <>
                 <Image
                   className="cellImg"
                   cloudName="dawjd5cx8"
-                  publicId={encontrado.img}
+                  publicId={found.img}
                   alt="avatar"
                 >
                   <Transformation
@@ -266,7 +269,7 @@ const AddInventory = () => {
               <div className="formInput">
                 <label>Destino</label>
                 <select
-                  name="destino"
+                  name="punto"
                   className="styled-select semi-square"
                   onChange={handleInputChange}
                   disabled={disabled}
